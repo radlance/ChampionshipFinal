@@ -38,6 +38,8 @@ android {
 }
 
 dependencies {
+    api(platform(libs.androidx.compose.bom))
+    api(libs.androidx.activity.compose)
     api(libs.androidx.ui)
     api(libs.androidx.ui.graphics)
     api(libs.androidx.ui.tooling.preview)
