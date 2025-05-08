@@ -19,8 +19,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.core.text.isDigitsOnly
-import com.radlance.uikit.component.EnterInputField
-import com.radlance.uikit.component.SingleInputField
+import com.radlance.uikit.component.input.EnterInputField
+import com.radlance.uikit.component.input.SingleInputField
+import com.radlance.uikit.component.select.AppSelector
 import com.radlance.uikit.theme.CustomTheme
 
 class MainActivity : ComponentActivity() {
@@ -32,6 +33,11 @@ class MainActivity : ComponentActivity() {
                 var fieldValue by rememberSaveable { mutableStateOf("") }
                 var singleValue by rememberSaveable { mutableStateOf("") }
                 var errorMessage by rememberSaveable { mutableStateOf("") }
+
+                var selectedItemFirst by rememberSaveable { mutableStateOf<String?>(null) }
+                var selectedItemSecond by rememberSaveable { mutableStateOf<String?>(null) }
+                var selectedItemThird by rememberSaveable { mutableStateOf<String?>(null) }
+
                 Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                     Column(
                         horizontalAlignment = Alignment.CenterHorizontally,
@@ -46,7 +52,7 @@ class MainActivity : ComponentActivity() {
                             },
                             errorMessage = errorMessage,
                             enabled = true,
-                            label = "asd",
+                            label = "Имя",
                             hint = "Введите имя"
                         )
 
@@ -58,6 +64,32 @@ class MainActivity : ComponentActivity() {
                                 }
                             },
                             hint = "1"
+                        )
+
+                        AppSelector(
+                            options = listOf("Мужской", "Женский"),
+                            selectedItem = selectedItemFirst,
+                            hint = "Пол",
+                            label = "",
+                            onItemSelect = { selectedItemFirst = it },
+                        )
+
+                        AppSelector(
+                            options = listOf("Мужской", "Женский"),
+                            selectedItem = selectedItemSecond,
+                            hint = "Пол",
+                            onItemSelect = { selectedItemSecond = it },
+                            label = "",
+                            closable = true
+                        )
+
+                        AppSelector(
+                            options = listOf("Сегодня, 16 апреля", "Завтра, 17 апреля"),
+                            selectedItem = selectedItemThird,
+                            hint = "Дата",
+                            onItemSelect = { selectedItemThird = it },
+                            label = "Дата",
+                            closable = false
                         )
 
                         Button(onClick = { errorMessage = "Введите ваше имя" }) {

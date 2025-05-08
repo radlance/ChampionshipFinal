@@ -1,4 +1,4 @@
-package com.radlance.uikit.component
+package com.radlance.uikit.component.input
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState

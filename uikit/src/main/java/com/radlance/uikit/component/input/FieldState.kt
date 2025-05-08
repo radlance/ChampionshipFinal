@@ -1,4 +1,4 @@
-package com.radlance.uikit.component
+package com.radlance.uikit.component.input
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.ui.Alignment
