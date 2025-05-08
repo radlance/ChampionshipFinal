@@ -21,4 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "ChampionshipFinal"
 include(":app")
- 
+include(":uikit")
