@@ -12,3 +12,7 @@ object Splash : Destination
 @Keep
 @Serializable
 object SignIn : Destination
+
+@Keep
+@Serializable
+object PasswordCreation : Destination

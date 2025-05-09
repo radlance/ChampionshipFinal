@@ -11,4 +11,7 @@
     <string name="or_sign_in_with">Или войдите с помощью</string>
     <string name="sign_in_with_vk">Войти с VK</string>
     <string name="sign_in_with_yandex">Войти с Yandex</string>
+    <string name="skip">Пропустить</string>
+    <string name="create_password">Создайте пароль</string>
+    <string name="for_protection_your_data">Для защиты ваших персональных данных</string>
 </resources>

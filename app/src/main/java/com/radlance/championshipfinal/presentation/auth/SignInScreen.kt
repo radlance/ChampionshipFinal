@@ -1,4 +1,4 @@
-package com.radlance.championshipfinal.presentation.auth.signin
+package com.radlance.championshipfinal.presentation.auth
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -36,7 +36,10 @@ import com.radlance.uikit.component.input.EnterInputField
 import com.radlance.uikit.theme.CustomTheme
 
 @Composable
-fun SignInScreen(modifier: Modifier = Modifier) {
+fun SignInScreen(
+    navigateToPasswordCreationScreen: () -> Unit,
+    modifier: Modifier = Modifier
+) {
     var emailFieldValue by rememberSaveable { mutableStateOf("") }
     var passwordFieldValue by rememberSaveable { mutableStateOf("") }
 
@@ -86,7 +89,7 @@ fun SignInScreen(modifier: Modifier = Modifier) {
         )
         Spacer(Modifier.height(14.dp))
         AppButton(
-            onClick = {},
+            onClick = navigateToPasswordCreationScreen,
             label = stringResource(R.string.next),
             buttonState = ButtonState.Big,
             enabled = emailFieldValue.isNotEmpty() && passwordFieldValue.isNotEmpty()
