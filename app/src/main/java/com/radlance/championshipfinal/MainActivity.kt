@@ -36,6 +36,8 @@ import com.radlance.uikit.component.card.BaseSmallCard
 import com.radlance.uikit.component.card.BaseSmallCardState
 import com.radlance.uikit.component.card.CheckboxSmallCard
 import com.radlance.uikit.component.card.PrimaryCard
+import com.radlance.uikit.component.header.BigHeader
+import com.radlance.uikit.component.header.SmallHeader
 import com.radlance.uikit.component.input.EnterInputField
 import com.radlance.uikit.component.input.SingleInputField
 import com.radlance.uikit.component.search.AppSearchField
@@ -217,7 +219,7 @@ class MainActivity : ComponentActivity() {
 
                                 Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
                                     BubbleButton(
-                                        icon = R.drawable.ic_back,
+                                        icon = com.radlance.uikit.R.drawable.ic_back,
                                         state = BubbleButtonState.Small
                                     )
                                     BubbleButton(icon = R.drawable.ic_filter)
@@ -259,6 +261,9 @@ class MainActivity : ComponentActivity() {
                                     date = "16 февраля",
                                     status = "Куплено"
                                 )
+
+                                BigHeader(title = "Корзина")
+                                SmallHeader(title = "Корзина")
                             }
                         }
                     }
