@@ -7,13 +7,12 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -22,6 +21,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.core.text.isDigitsOnly
+import com.radlance.uikit.component.button.AppButton
+import com.radlance.uikit.component.button.BubbleButton
+import com.radlance.uikit.component.button.BubbleButtonState
+import com.radlance.uikit.component.button.ButtonState
+import com.radlance.uikit.component.button.CartButton
+import com.radlance.uikit.component.button.LoginButton
+import com.radlance.uikit.component.button.OutlinedAppButton
+import com.radlance.uikit.component.button.SecondaryButton
 import com.radlance.uikit.component.input.EnterInputField
 import com.radlance.uikit.component.input.SingleInputField
 import com.radlance.uikit.component.search.AppSearchField
@@ -118,12 +125,73 @@ class MainActivity : ComponentActivity() {
                             cancellable = true
                         )
 
-                        Button(onClick = { errorMessage = "Введите ваше имя" }) {
-                            Text("Показать ошибку")
-                        }
+                        AppButton(
+                            onClick = { errorMessage = "Введите ваше имя" },
+                            label = "Показать ошибку",
+                            buttonState = ButtonState.Big
+                        )
 
-                        Button(onClick = { errorMessage = "" }) {
-                            Text("Скрыть ошибку")
+                        AppButton(
+                            onClick = { errorMessage = "Введите ваше имя" },
+                            label = "Показать ошибку (выключена)",
+                            enabled = false,
+                            buttonState = ButtonState.Big
+                        )
+
+                        OutlinedAppButton(
+                            onClick = { errorMessage = "" },
+                            label = "Скрыть ошибку",
+                            buttonState = ButtonState.Big
+                        )
+
+                        SecondaryButton(
+                            onClick = { errorMessage = "" },
+                            label = "Добавить проект",
+                            buttonState = ButtonState.Medium
+                        )
+
+                        AppButton(
+                            onClick = { errorMessage = "" },
+                            label = "Добавить",
+                            enabled = false,
+                            buttonState = ButtonState.Small
+                        )
+
+                        AppButton(
+                            onClick = { errorMessage = "" },
+                            label = "Популярное",
+                            buttonState = ButtonState.Chips
+                        )
+
+                        SecondaryButton(
+                            onClick = { errorMessage = "" },
+                            label = "Популярное",
+                            enabled = false,
+                            buttonState = ButtonState.Chips
+                        )
+
+                        CartButton(
+                            onClick = { errorMessage = "" },
+                            totalPrice = 500,
+                            label = "В корзину"
+                        )
+
+                        LoginButton(
+                            onClick = { errorMessage = "" },
+                            icon = R.drawable.ic_vk_login,
+                            label = "Войти с VK"
+                        )
+
+                        LoginButton(
+                            onClick = { errorMessage = "" },
+                            icon = R.drawable.ic_yandex_login,
+                            label = "Войти с Yandex"
+                        )
+
+                        Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+                            BubbleButton(icon = R.drawable.ic_back, state = BubbleButtonState.Small)
+                            BubbleButton(icon = R.drawable.ic_filter)
+                            BubbleButton(icon = R.drawable.ic_message)
                         }
                     }
                 }
