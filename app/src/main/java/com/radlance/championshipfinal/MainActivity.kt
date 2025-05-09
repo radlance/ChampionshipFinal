@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,6 +14,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -33,6 +35,8 @@ import com.radlance.uikit.component.input.EnterInputField
 import com.radlance.uikit.component.input.SingleInputField
 import com.radlance.uikit.component.search.AppSearchField
 import com.radlance.uikit.component.select.AppSelector
+import com.radlance.uikit.component.tabbar.BottomTab
+import com.radlance.uikit.component.tabbar.BottomTabBar
 import com.radlance.uikit.theme.CustomTheme
 
 class MainActivity : ComponentActivity() {
@@ -52,146 +56,167 @@ class MainActivity : ComponentActivity() {
                 var searchFieldValue by rememberSaveable { mutableStateOf("") }
                 var secondSearchFieldValue by rememberSaveable { mutableStateOf("") }
 
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .verticalScroll(rememberScrollState())
-                        .safeDrawingPadding(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Column(
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.spacedBy(24.dp),
-                        modifier = Modifier.padding(horizontal = 26.dp)
-                    ) {
-                        EnterInputField(
-                            value = fieldValue,
-                            onValueChange = {
-                                fieldValue = it
-                                errorMessage = ""
-                            },
-                            errorMessage = errorMessage,
-                            enabled = true,
-                            label = "Имя",
-                            hint = "Введите имя"
-                        )
+                Scaffold { padding ->
+                    Scaffold(
+                        bottomBar = {
+                            BottomTabBar(
+                                selectedTab = BottomTab.Home,
+                                onTabClick = {},
+                                bottomPadding = padding.calculateBottomPadding()
+                            )
+                        }
+                    ) { contentPadding ->
+                        Box(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .background(CustomTheme.colors.white)
+                                .verticalScroll(rememberScrollState())
+                                .padding(contentPadding)
+                                .safeDrawingPadding(),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Column(
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                                verticalArrangement = Arrangement.spacedBy(24.dp),
+                                modifier = Modifier.padding(
+                                    start = 26.dp,
+                                    end = 26.dp,
+                                    bottom = contentPadding.calculateBottomPadding()
+                                )
+                            ) {
+                                EnterInputField(
+                                    value = fieldValue,
+                                    onValueChange = {
+                                        fieldValue = it
+                                        errorMessage = ""
+                                    },
+                                    errorMessage = errorMessage,
+                                    enabled = true,
+                                    label = "Имя",
+                                    hint = "Введите имя"
+                                )
 
-                        SingleInputField(
-                            value = singleValue,
-                            onValueChange = {
-                                if (it.length < 2 && it.isDigitsOnly()) {
-                                    singleValue = it
+                                SingleInputField(
+                                    value = singleValue,
+                                    onValueChange = {
+                                        if (it.length < 2 && it.isDigitsOnly()) {
+                                            singleValue = it
+                                        }
+                                    },
+                                    hint = "1"
+                                )
+
+                                AppSelector(
+                                    options = listOf("Мужской", "Женский"),
+                                    selectedItem = selectedItemFirst,
+                                    hint = "Пол",
+                                    label = "",
+                                    onItemSelect = { selectedItemFirst = it },
+                                )
+
+                                AppSelector(
+                                    options = listOf("Мужской", "Женский"),
+                                    selectedItem = selectedItemSecond,
+                                    hint = "Пол",
+                                    onItemSelect = { selectedItemSecond = it },
+                                    label = "",
+                                    closable = true
+                                )
+
+                                AppSelector(
+                                    options = listOf("Сегодня, 16 апреля", "Завтра, 17 апреля"),
+                                    selectedItem = selectedItemThird,
+                                    hint = "Дата",
+                                    onItemSelect = { selectedItemThird = it },
+                                    label = "Дата",
+                                    closable = false
+                                )
+
+                                AppSearchField(
+                                    value = searchFieldValue,
+                                    onValueChange = { searchFieldValue = it },
+                                    hint = "Искать описание"
+                                )
+
+                                AppSearchField(
+                                    value = secondSearchFieldValue,
+                                    onValueChange = { secondSearchFieldValue = it },
+                                    hint = "Искать описание",
+                                    cancellable = true
+                                )
+
+                                AppButton(
+                                    onClick = { errorMessage = "Введите ваше имя" },
+                                    label = "Показать ошибку",
+                                    buttonState = ButtonState.Big
+                                )
+
+                                AppButton(
+                                    onClick = { errorMessage = "Введите ваше имя" },
+                                    label = "Показать ошибку (выключена)",
+                                    enabled = false,
+                                    buttonState = ButtonState.Big
+                                )
+
+                                OutlinedAppButton(
+                                    onClick = { errorMessage = "" },
+                                    label = "Скрыть ошибку",
+                                    buttonState = ButtonState.Big
+                                )
+
+                                SecondaryButton(
+                                    onClick = { errorMessage = "" },
+                                    label = "Добавить проект",
+                                    buttonState = ButtonState.Medium
+                                )
+
+                                AppButton(
+                                    onClick = { errorMessage = "" },
+                                    label = "Добавить",
+                                    enabled = false,
+                                    buttonState = ButtonState.Small
+                                )
+
+                                AppButton(
+                                    onClick = { errorMessage = "" },
+                                    label = "Популярное",
+                                    buttonState = ButtonState.Chips
+                                )
+
+                                SecondaryButton(
+                                    onClick = { errorMessage = "" },
+                                    label = "Популярное",
+                                    enabled = false,
+                                    buttonState = ButtonState.Chips
+                                )
+
+                                CartButton(
+                                    onClick = { errorMessage = "" },
+                                    totalPrice = 500,
+                                    label = "В корзину"
+                                )
+
+                                LoginButton(
+                                    onClick = { errorMessage = "" },
+                                    icon = R.drawable.ic_vk_login,
+                                    label = "Войти с VK"
+                                )
+
+                                LoginButton(
+                                    onClick = { errorMessage = "" },
+                                    icon = R.drawable.ic_yandex_login,
+                                    label = "Войти с Yandex"
+                                )
+
+                                Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+                                    BubbleButton(
+                                        icon = R.drawable.ic_back,
+                                        state = BubbleButtonState.Small
+                                    )
+                                    BubbleButton(icon = R.drawable.ic_filter)
+                                    BubbleButton(icon = R.drawable.ic_message)
                                 }
-                            },
-                            hint = "1"
-                        )
-
-                        AppSelector(
-                            options = listOf("Мужской", "Женский"),
-                            selectedItem = selectedItemFirst,
-                            hint = "Пол",
-                            label = "",
-                            onItemSelect = { selectedItemFirst = it },
-                        )
-
-                        AppSelector(
-                            options = listOf("Мужской", "Женский"),
-                            selectedItem = selectedItemSecond,
-                            hint = "Пол",
-                            onItemSelect = { selectedItemSecond = it },
-                            label = "",
-                            closable = true
-                        )
-
-                        AppSelector(
-                            options = listOf("Сегодня, 16 апреля", "Завтра, 17 апреля"),
-                            selectedItem = selectedItemThird,
-                            hint = "Дата",
-                            onItemSelect = { selectedItemThird = it },
-                            label = "Дата",
-                            closable = false
-                        )
-
-                        AppSearchField(
-                            value = searchFieldValue,
-                            onValueChange = { searchFieldValue = it },
-                            hint = "Искать описание"
-                        )
-
-                        AppSearchField(
-                            value = secondSearchFieldValue,
-                            onValueChange = { secondSearchFieldValue = it },
-                            hint = "Искать описание",
-                            cancellable = true
-                        )
-
-                        AppButton(
-                            onClick = { errorMessage = "Введите ваше имя" },
-                            label = "Показать ошибку",
-                            buttonState = ButtonState.Big
-                        )
-
-                        AppButton(
-                            onClick = { errorMessage = "Введите ваше имя" },
-                            label = "Показать ошибку (выключена)",
-                            enabled = false,
-                            buttonState = ButtonState.Big
-                        )
-
-                        OutlinedAppButton(
-                            onClick = { errorMessage = "" },
-                            label = "Скрыть ошибку",
-                            buttonState = ButtonState.Big
-                        )
-
-                        SecondaryButton(
-                            onClick = { errorMessage = "" },
-                            label = "Добавить проект",
-                            buttonState = ButtonState.Medium
-                        )
-
-                        AppButton(
-                            onClick = { errorMessage = "" },
-                            label = "Добавить",
-                            enabled = false,
-                            buttonState = ButtonState.Small
-                        )
-
-                        AppButton(
-                            onClick = { errorMessage = "" },
-                            label = "Популярное",
-                            buttonState = ButtonState.Chips
-                        )
-
-                        SecondaryButton(
-                            onClick = { errorMessage = "" },
-                            label = "Популярное",
-                            enabled = false,
-                            buttonState = ButtonState.Chips
-                        )
-
-                        CartButton(
-                            onClick = { errorMessage = "" },
-                            totalPrice = 500,
-                            label = "В корзину"
-                        )
-
-                        LoginButton(
-                            onClick = { errorMessage = "" },
-                            icon = R.drawable.ic_vk_login,
-                            label = "Войти с VK"
-                        )
-
-                        LoginButton(
-                            onClick = { errorMessage = "" },
-                            icon = R.drawable.ic_yandex_login,
-                            label = "Войти с Yandex"
-                        )
-
-                        Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-                            BubbleButton(icon = R.drawable.ic_back, state = BubbleButtonState.Small)
-                            BubbleButton(icon = R.drawable.ic_filter)
-                            BubbleButton(icon = R.drawable.ic_message)
+                            }
                         }
                     }
                 }

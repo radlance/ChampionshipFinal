@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="cancel">Отменить</string>
+    <string name="home">Главная</string>
+    <string name="catalog">Каталог</string>
+    <string name="projects">Проекты</string>
+    <string name="profile">Профиль</string>
 </resources>
