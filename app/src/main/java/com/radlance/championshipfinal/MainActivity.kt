@@ -9,6 +9,9 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawingPadding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.getValue
@@ -21,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.core.text.isDigitsOnly
 import com.radlance.uikit.component.input.EnterInputField
 import com.radlance.uikit.component.input.SingleInputField
+import com.radlance.uikit.component.search.AppSearchField
 import com.radlance.uikit.component.select.AppSelector
 import com.radlance.uikit.theme.CustomTheme
 
@@ -38,7 +42,16 @@ class MainActivity : ComponentActivity() {
                 var selectedItemSecond by rememberSaveable { mutableStateOf<String?>(null) }
                 var selectedItemThird by rememberSaveable { mutableStateOf<String?>(null) }
 
-                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                var searchFieldValue by rememberSaveable { mutableStateOf("") }
+                var secondSearchFieldValue by rememberSaveable { mutableStateOf("") }
+
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .verticalScroll(rememberScrollState())
+                        .safeDrawingPadding(),
+                    contentAlignment = Alignment.Center
+                ) {
                     Column(
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.spacedBy(24.dp),
@@ -90,6 +103,19 @@ class MainActivity : ComponentActivity() {
                             onItemSelect = { selectedItemThird = it },
                             label = "Дата",
                             closable = false
+                        )
+
+                        AppSearchField(
+                            value = searchFieldValue,
+                            onValueChange = { searchFieldValue = it },
+                            hint = "Искать описание"
+                        )
+
+                        AppSearchField(
+                            value = secondSearchFieldValue,
+                            onValueChange = { secondSearchFieldValue = it },
+                            hint = "Искать описание",
+                            cancellable = true
                         )
 
                         Button(onClick = { errorMessage = "Введите ваше имя" }) {

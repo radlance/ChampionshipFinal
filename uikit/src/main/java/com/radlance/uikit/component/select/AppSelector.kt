@@ -86,20 +86,20 @@ fun AppSelector(
                                 }
                         )
                         if (index == 0) {
-                            IconButton(
-                                onClick = {
+                            Image(
+                                painter = painterResource(R.drawable.ic_dismiss),
+                                contentDescription = "ic_dismiss",
+                                modifier = Modifier.clickable(
+                                    interactionSource = interactionSource,
+                                    indication = null
+                                ) {
                                     scope.launch { sheetState.hide() }.invokeOnCompletion {
                                         if (!sheetState.isVisible) {
                                             showBottomSheet = false
                                         }
                                     }
                                 }
-                            ) {
-                                Image(
-                                    painter = painterResource(R.drawable.ic_dismiss),
-                                    contentDescription = "ic_dismiss"
-                                )
-                            }
+                            )
                         }
                         Spacer(Modifier.width(20.dp))
                     }
