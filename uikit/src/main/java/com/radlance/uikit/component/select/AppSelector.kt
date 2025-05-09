@@ -129,7 +129,10 @@ fun AppSelector(
                         color = CustomTheme.colors.inputStroke,
                         shape = RoundedCornerShape(10.dp)
                     )
-                    .clickable { showBottomSheet = true }
+                    .clickable(
+                        interactionSource = interactionSource,
+                        indication = null
+                    ) { showBottomSheet = true }
                     .weight(1f)
             ) {
                 Spacer(Modifier.width(14.dp))

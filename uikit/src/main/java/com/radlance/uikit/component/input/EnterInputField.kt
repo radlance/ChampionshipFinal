@@ -124,6 +124,7 @@ fun EnterInputField(
                         ),
                         enabled = enabled,
                         modifier = Modifier
+                            .fillMaxWidth()
                             .focusRequester(focusRequester)
                             .onFocusChanged { focusState -> hasFocus = focusState.hasFocus }
                     )

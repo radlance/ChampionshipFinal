@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -27,7 +28,7 @@ fun BottomTabBar(
     Column(modifier = modifier.background(CustomTheme.colors.white)) {
         Column(
             modifier = Modifier
-                .height(59.dp)
+                .height(67.dp)
                 .offset(y = -bottomPadding)
                 .background(CustomTheme.colors.white),
             verticalArrangement = Arrangement.Center
@@ -38,7 +39,7 @@ fun BottomTabBar(
             Spacer(Modifier.height(8.dp))
             Row(
                 horizontalArrangement = Arrangement.SpaceAround,
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier.fillMaxSize().padding(bottom = 8.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 val tabs =
