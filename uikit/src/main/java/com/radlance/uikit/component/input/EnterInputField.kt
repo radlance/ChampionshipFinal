@@ -67,7 +67,7 @@ fun EnterInputField(
 
     val fillColor by animateColorAsState(
         if (errorMessage.isNotEmpty()) {
-            Color(red = 1f, green = 0f, blue = 0f, alpha = 0.1f)
+            CustomTheme.colors.error.copy(alpha = 0.1f)
         } else {
             Color.Transparent
         }
@@ -90,12 +90,7 @@ fun EnterInputField(
                 .background(CustomTheme.colors.inputBg)
                 .border(
                     width = 1.dp,
-                    color = Color(
-                        red = borderColor.red,
-                        green = borderColor.green,
-                        blue = borderColor.blue,
-                        alpha = borderAlpha
-                    ),
+                    color = borderColor.copy(alpha = borderAlpha),
                     shape = RoundedCornerShape(10.dp)
                 )
         ) {

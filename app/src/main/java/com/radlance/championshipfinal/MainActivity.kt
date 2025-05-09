@@ -31,6 +31,7 @@ import com.radlance.uikit.component.button.CartButton
 import com.radlance.uikit.component.button.LoginButton
 import com.radlance.uikit.component.button.OutlinedAppButton
 import com.radlance.uikit.component.button.SecondaryButton
+import com.radlance.uikit.component.card.PrimaryCard
 import com.radlance.uikit.component.input.EnterInputField
 import com.radlance.uikit.component.input.SingleInputField
 import com.radlance.uikit.component.search.AppSearchField
@@ -216,6 +217,18 @@ class MainActivity : ComponentActivity() {
                                     BubbleButton(icon = R.drawable.ic_filter)
                                     BubbleButton(icon = R.drawable.ic_message)
                                 }
+                                PrimaryCard(
+                                    title = "Рубашка Воскресенье для машинного вязания",
+                                    category = "Мужская одежда",
+                                    price = 300,
+                                    inCart = false
+                                )
+                                PrimaryCard(
+                                    title = "Рубашка Воскресенье для машинного вязания",
+                                    category = "Мужская одежда",
+                                    price = 300,
+                                    inCart = true
+                                )
                             }
                         }
                     }

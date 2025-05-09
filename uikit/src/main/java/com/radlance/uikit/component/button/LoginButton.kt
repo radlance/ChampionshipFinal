@@ -1,8 +1,8 @@
 package com.radlance.uikit.component.button
 
 import androidx.annotation.DrawableRes
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -30,12 +30,11 @@ fun LoginButton(
         onClick = onClick,
         modifier = modifier
             .then(buttonState.appButtonWidth())
-            .height(buttonState.height())
-            .border(
-                width = 1.dp,
-                shape = RoundedCornerShape(12.dp),
-                color = CustomTheme.colors.inputStroke
-            ),
+            .height(buttonState.height()),
+        border = BorderStroke(
+            width = 1.dp,
+            color = CustomTheme.colors.inputStroke
+        ),
         shape = RoundedCornerShape(12.dp)
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {

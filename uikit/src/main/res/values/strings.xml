@@ -5,4 +5,6 @@
     <string name="catalog">Каталог</string>
     <string name="projects">Проекты</string>
     <string name="profile">Профиль</string>
+    <string name="remove">Убрать</string>
+    <string name="add">Добавить</string>
 </resources>

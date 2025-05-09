@@ -33,12 +33,7 @@ fun BottomTabBar(
             verticalArrangement = Arrangement.Center
         ) {
             HorizontalDivider(
-                thickness = 1.dp, color = Color(
-                    red = 160,
-                    green = 160,
-                    blue = 160,
-                    alpha = (0.3f * 255).toInt()
-                )
+                thickness = 1.dp, color = Color(0xFFA0A0A0).copy(alpha = 0.3f)
             )
             Spacer(Modifier.height(8.dp))
             Row(
