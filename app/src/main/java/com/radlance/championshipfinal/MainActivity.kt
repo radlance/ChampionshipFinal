@@ -31,6 +31,10 @@ import com.radlance.uikit.component.button.CartButton
 import com.radlance.uikit.component.button.LoginButton
 import com.radlance.uikit.component.button.OutlinedAppButton
 import com.radlance.uikit.component.button.SecondaryButton
+import com.radlance.uikit.component.card.AnalysisCard
+import com.radlance.uikit.component.card.BaseSmallCard
+import com.radlance.uikit.component.card.BaseSmallCardState
+import com.radlance.uikit.component.card.CheckboxSmallCard
 import com.radlance.uikit.component.card.PrimaryCard
 import com.radlance.uikit.component.input.EnterInputField
 import com.radlance.uikit.component.input.SingleInputField
@@ -56,6 +60,8 @@ class MainActivity : ComponentActivity() {
 
                 var searchFieldValue by rememberSaveable { mutableStateOf("") }
                 var secondSearchFieldValue by rememberSaveable { mutableStateOf("") }
+
+                var checkedSmall by rememberSaveable { mutableStateOf(false) }
 
                 Scaffold { padding ->
                     Scaffold(
@@ -228,6 +234,30 @@ class MainActivity : ComponentActivity() {
                                     category = "Мужская одежда",
                                     price = 300,
                                     inCart = true
+                                )
+
+                                BaseSmallCard(
+                                    title = "Рубашка Воскресенье для машинного вязания",
+                                    price = 300
+                                )
+
+                                BaseSmallCard(
+                                    title = "Рубашка Воскресенье для машинного вязания",
+                                    price = 300,
+                                    state = BaseSmallCardState.Inactive
+                                )
+
+                                CheckboxSmallCard(
+                                    title = "Рубашка Воскресенье для машинного вязания",
+                                    checked = checkedSmall,
+                                    onChecked = { checkedSmall = it },
+                                    price = 300
+                                )
+
+                                AnalysisCard(
+                                    title = "Рубашка Воскресенье для машинного вязания",
+                                    date = "16 февраля",
+                                    status = "Куплено"
                                 )
                             }
                         }
