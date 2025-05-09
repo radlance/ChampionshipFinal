@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">ChampionshipFinal</string>
+    <string name="matule">Matule</string>
+    <string name="welcome">Добро пожаловать!</string>
+    <string name="sign_in_for_features">Войдите, чтобы пользоваться функциями приложения</string>
+    <string name="email_sign_in">Вход по email</string>
+    <string name="email_hint">example@mail.com</string>
+    <string name="password">Пароль</string>
+    <string name="next">Далее</string>
+    <string name="forgot_password">Забыл пароль?</string>
+    <string name="or_sign_in_with">Или войдите с помощью</string>
+    <string name="sign_in_with_vk">Войти с VK</string>
+    <string name="sign_in_with_yandex">Войти с Yandex</string>
 </resources>
