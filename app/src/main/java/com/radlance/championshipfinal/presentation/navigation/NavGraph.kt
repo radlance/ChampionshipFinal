@@ -6,8 +6,10 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.radlance.championshipfinal.presentation.auth.OtpEnterScreen
 import com.radlance.championshipfinal.presentation.auth.PasswordCreationScreen
 import com.radlance.championshipfinal.presentation.auth.ProfileCreationScreen
+import com.radlance.championshipfinal.presentation.auth.ResetPasswordScreen
 import com.radlance.championshipfinal.presentation.auth.SignInScreen
 import com.radlance.championshipfinal.presentation.splash.SplashScreen
 import com.radlance.uikit.theme.CustomTheme
@@ -28,9 +30,10 @@ fun NavGraph(
 
         composable<SignIn> {
             SignInScreen(
-                navigateToPasswordCreationScreen = {
+                navigateToPasswordCreation = {
                     navController.navigate(PasswordCreation)
-                }
+                },
+                navigateToOtpEnter = { navController.navigate(OtpEnter) }
             )
         }
 
@@ -44,6 +47,21 @@ fun NavGraph(
 
         composable<ProfileCreation> {
             ProfileCreationScreen()
+        }
+
+        composable<OtpEnter> {
+            OtpEnterScreen(
+                onBackPressed = navController::navigateUp,
+                navigateToResetPassword = { navController.navigate(ResetPassword) }
+            )
+        }
+
+        composable<ResetPassword> {
+            ResetPasswordScreen(
+                onBackPressed = {
+                    navController.navigate(SignIn) { popUpTo<SignIn>() }
+                }
+            )
         }
     }
 }

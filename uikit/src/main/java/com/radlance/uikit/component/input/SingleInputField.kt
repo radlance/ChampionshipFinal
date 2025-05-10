@@ -11,8 +11,8 @@ import androidx.compose.ui.unit.dp
 fun SingleInputField(
     value: String,
     onValueChange: (String) -> Unit,
-    hint: String,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    hint: String = ""
 ) {
 
     EnterInputField(

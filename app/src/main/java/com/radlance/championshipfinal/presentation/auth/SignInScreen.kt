@@ -1,6 +1,8 @@
 package com.radlance.championshipfinal.presentation.auth
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -16,9 +18,11 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
+import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -38,7 +42,8 @@ import com.radlance.uikit.theme.CustomTheme
 
 @Composable
 fun SignInScreen(
-    navigateToPasswordCreationScreen: () -> Unit,
+    navigateToOtpEnter: () -> Unit,
+    navigateToPasswordCreation: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     var emailFieldValue by rememberSaveable { mutableStateOf("") }
@@ -93,7 +98,7 @@ fun SignInScreen(
         AppButton(
             onClick = {
                 keyboardController?.hide()
-                navigateToPasswordCreationScreen()
+                navigateToPasswordCreation()
             },
             label = stringResource(R.string.next),
             buttonState = ButtonState.Big,
@@ -106,7 +111,14 @@ fun SignInScreen(
                 color = CustomTheme.colors.accent,
                 textAlign = TextAlign.Center
             ),
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable(
+                    interactionSource = remember { MutableInteractionSource() },
+                    indication = ripple()
+                ) {
+                    navigateToOtpEnter()
+                }
         )
         Spacer(Modifier.weight(1f))
         Column(verticalArrangement = Arrangement.spacedBy(CustomTheme.elevation.spacing16dp)) {

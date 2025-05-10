@@ -20,3 +20,11 @@ object PasswordCreation : Destination
 @Keep
 @Serializable
 object ProfileCreation : Destination
+
+@Keep
+@Serializable
+object OtpEnter : Destination
+
+@Keep
+@Serializable
+object ResetPassword : Destination
