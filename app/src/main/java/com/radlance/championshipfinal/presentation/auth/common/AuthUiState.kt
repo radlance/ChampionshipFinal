@@ -1,4 +1,4 @@
-package com.radlance.championshipfinal.presentation.auth
+package com.radlance.championshipfinal.presentation.auth.common
 
 data class AuthUiState(
     val invalidFirstNameMessage: String = "",

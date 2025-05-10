@@ -1,4 +1,4 @@
-package com.radlance.championshipfinal.presentation.auth
+package com.radlance.championshipfinal.presentation.auth.common
 
 import com.radlance.championshipfinal.presentation.common.BaseViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

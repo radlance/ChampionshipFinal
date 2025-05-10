@@ -6,11 +6,11 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.radlance.championshipfinal.presentation.auth.OtpEnterScreen
-import com.radlance.championshipfinal.presentation.auth.PasswordCreationScreen
-import com.radlance.championshipfinal.presentation.auth.ProfileCreationScreen
-import com.radlance.championshipfinal.presentation.auth.ResetPasswordScreen
-import com.radlance.championshipfinal.presentation.auth.SignInScreen
+import com.radlance.championshipfinal.presentation.auth.recover.OtpEnterScreen
+import com.radlance.championshipfinal.presentation.auth.core.PasswordCreationScreen
+import com.radlance.championshipfinal.presentation.auth.core.ProfileCreationScreen
+import com.radlance.championshipfinal.presentation.auth.recover.ResetPasswordScreen
+import com.radlance.championshipfinal.presentation.auth.core.SignInScreen
 import com.radlance.championshipfinal.presentation.home.HomeScreen
 import com.radlance.championshipfinal.presentation.splash.SplashScreen
 import com.radlance.uikit.theme.CustomTheme

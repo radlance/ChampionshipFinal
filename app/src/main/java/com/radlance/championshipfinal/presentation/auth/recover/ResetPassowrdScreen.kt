@@ -1,4 +1,4 @@
-package com.radlance.championshipfinal.presentation.auth
+package com.radlance.championshipfinal.presentation.auth.recover
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
@@ -30,6 +30,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.radlance.championshipfinal.R
+import com.radlance.championshipfinal.presentation.auth.common.AuthViewModel
 import com.radlance.uikit.component.button.AppButton
 import com.radlance.uikit.component.button.ButtonState
 import com.radlance.uikit.component.input.EnterInputField

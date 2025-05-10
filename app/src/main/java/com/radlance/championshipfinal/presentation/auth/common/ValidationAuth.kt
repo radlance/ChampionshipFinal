@@ -1,4 +1,4 @@
-package com.radlance.championshipfinal.presentation.auth
+package com.radlance.championshipfinal.presentation.auth.common
 
 import com.radlance.championshipfinal.R
 import com.radlance.championshipfinal.common.ProvideResources

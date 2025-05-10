@@ -1,4 +1,4 @@
-package com.radlance.championshipfinal.presentation.auth
+package com.radlance.championshipfinal.presentation.auth.recover
 
 import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel

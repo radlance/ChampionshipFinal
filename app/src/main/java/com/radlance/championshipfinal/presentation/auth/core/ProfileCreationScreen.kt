@@ -1,4 +1,4 @@
-package com.radlance.championshipfinal.presentation.auth
+package com.radlance.championshipfinal.presentation.auth.core
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -22,6 +22,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.radlance.championshipfinal.R
+import com.radlance.championshipfinal.presentation.auth.common.AuthViewModel
 import com.radlance.uikit.component.button.AppButton
 import com.radlance.uikit.component.button.ButtonState
 import com.radlance.uikit.component.input.EnterInputField

@@ -1,4 +1,4 @@
-package com.radlance.championshipfinal.presentation.auth
+package com.radlance.championshipfinal.presentation.auth.core
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.background
