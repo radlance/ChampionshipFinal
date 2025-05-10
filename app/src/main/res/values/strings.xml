@@ -14,4 +14,16 @@
     <string name="skip">Пропустить</string>
     <string name="create_password">Создайте пароль</string>
     <string name="for_protection_your_data">Для защиты ваших персональных данных</string>
+    <string name="profile_creation">Создание Профиля</string>
+    <string name="without_profile">Без профиля вы не сможете создавать проекты.</string>
+    <string name="profile_will_be_store">В профиле будут храниться результаты проектов и ваши описания.</string>
+    <string name="name_hint">Имя</string>
+    <string name="patronymic_hint">Отчество</string>
+    <string name="last_name_hint">Фамилия</string>
+    <string name="date_of_birth_hint">Дата рождения</string>
+    <string name="male">Мужской</string>
+    <string name="female">Женский</string>
+    <string name="gender">Пол</string>
+    <string name="telegram_hint">Telegram</string>
+    <string name="create">Создать</string>
 </resources>

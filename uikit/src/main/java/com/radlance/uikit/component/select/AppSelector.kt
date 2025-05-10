@@ -19,6 +19,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
+import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -28,6 +29,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.radlance.uikit.R
@@ -45,10 +47,10 @@ fun AppSelector(
     modifier: Modifier = Modifier,
     closable: Boolean = false
 ) {
+    val keyboardController = LocalSoftwareKeyboardController.current
     var showBottomSheet by remember { mutableStateOf(false) }
     val sheetState = rememberModalBottomSheetState()
     val scope = rememberCoroutineScope()
-    val interactionSource = remember { MutableInteractionSource() }
 
     if (showBottomSheet) {
         ModalBottomSheet(
@@ -72,8 +74,8 @@ fun AppSelector(
                             modifier = Modifier
                                 .weight(1f)
                                 .clickable(
-                                    interactionSource = interactionSource,
-                                    indication = null
+                                    interactionSource = remember { MutableInteractionSource() },
+                                    indication = ripple()
                                 ) {
                                     scope.launch {
                                         onItemSelect(option)
@@ -90,7 +92,7 @@ fun AppSelector(
                                 painter = painterResource(R.drawable.ic_dismiss),
                                 contentDescription = "ic_dismiss",
                                 modifier = Modifier.clickable(
-                                    interactionSource = interactionSource,
+                                    interactionSource = remember { MutableInteractionSource() },
                                     indication = null
                                 ) {
                                     scope.launch { sheetState.hide() }.invokeOnCompletion {
@@ -130,9 +132,12 @@ fun AppSelector(
                         shape = RoundedCornerShape(10.dp)
                     )
                     .clickable(
-                        interactionSource = interactionSource,
-                        indication = null
-                    ) { showBottomSheet = true }
+                        interactionSource = remember { MutableInteractionSource() },
+                        indication = ripple()
+                    ) {
+                        keyboardController?.hide()
+                        showBottomSheet = true
+                    }
                     .weight(1f)
             ) {
                 Spacer(Modifier.width(14.dp))

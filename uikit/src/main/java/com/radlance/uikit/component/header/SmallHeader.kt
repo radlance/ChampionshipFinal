@@ -23,6 +23,7 @@ fun SmallHeader(
         BubbleButton(
             icon = R.drawable.ic_back,
             state = BubbleButtonState.Small,
+            onClick = {},
             modifier = Modifier.align(Alignment.CenterStart)
         )
 

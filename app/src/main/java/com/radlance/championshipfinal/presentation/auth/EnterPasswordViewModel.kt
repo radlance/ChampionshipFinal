@@ -7,7 +7,9 @@ class EnterPasswordViewModel : ViewModel() {
     private val passwordNumbers = mutableStateListOf<Int>()
 
     fun enterNumber(value: Int) {
-        passwordNumbers.add(value)
+        if (passwordNumbers.size < 4) {
+            passwordNumbers.add(value)
+        }
     }
 
     fun removeNumber() {
@@ -15,4 +17,7 @@ class EnterPasswordViewModel : ViewModel() {
     }
 
     fun passwordProgressList(): List<Int> = passwordNumbers
+
+    fun resetTypedPassword() = passwordNumbers.clear()
+
 }

@@ -22,7 +22,7 @@ fun BigHeader(
     modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier) {
-        BubbleButton(icon = R.drawable.ic_back, state = BubbleButtonState.Small)
+        BubbleButton(icon = R.drawable.ic_back, state = BubbleButtonState.Small, onClick = {})
         Spacer(Modifier.height(24.dp))
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text(text = title, style = CustomTheme.typography.title1Heavy)

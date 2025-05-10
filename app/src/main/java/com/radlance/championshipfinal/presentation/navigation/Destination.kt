@@ -16,3 +16,7 @@ object SignIn : Destination
 @Keep
 @Serializable
 object PasswordCreation : Destination
+
+@Keep
+@Serializable
+object ProfileCreation : Destination

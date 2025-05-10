@@ -52,7 +52,8 @@ fun EnterInputField(
     fieldState: FieldState = FieldState.Base,
     enabled: Boolean = true,
     isPassword: Boolean = false,
-    keyboardOptions: KeyboardOptions = KeyboardOptions.Default
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+    selectedBorderColor: Color = CustomTheme.colors.inputStroke
 ) {
 
     val interactionSource = remember { MutableInteractionSource() }
@@ -62,7 +63,7 @@ fun EnterInputField(
 
     val borderColor by animateColorAsState(
         when {
-            value.isNotEmpty() && !hasFocus -> CustomTheme.colors.inputStroke // TODO? check state
+            value.isNotEmpty() && !hasFocus -> selectedBorderColor
             hasFocus && errorMessage.isEmpty() -> CustomTheme.colors.accent
             errorMessage.isNotEmpty() -> CustomTheme.colors.error
             else -> CustomTheme.colors.inputStroke

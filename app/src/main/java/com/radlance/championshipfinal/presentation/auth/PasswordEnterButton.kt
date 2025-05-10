@@ -45,9 +45,9 @@ fun PasswordEnterButton(
             .pointerInput(Unit) {
                 detectTapGestures(
                     onPress = {
-                        onClick(number)
                         isPressed = true
                         tryAwaitRelease()
+                        onClick(number)
                         isPressed = false
                     }
                 )

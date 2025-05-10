@@ -18,7 +18,9 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
+import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -29,13 +31,25 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.radlance.championshipfinal.R
 import com.radlance.uikit.theme.CustomTheme
+import kotlinx.coroutines.delay
 
 @Composable
 fun PasswordCreationScreen(
+    navigateToProfileCreationScreen: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: EnterPasswordViewModel = viewModel()
 ) {
+    val interactionSource = remember { MutableInteractionSource() }
     val fillProgressList = viewModel.passwordProgressList()
+
+    LaunchedEffect(fillProgressList.size) {
+        if (fillProgressList.size >= 4) {
+            navigateToProfileCreationScreen()
+            delay(300)
+            viewModel.resetTypedPassword()
+        }
+    }
+
     Column(
         modifier = modifier
             .safeGesturesPadding()
@@ -47,7 +61,11 @@ fun PasswordCreationScreen(
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
             Text(
                 text = stringResource(R.string.skip),
-                style = CustomTheme.typography.textRegular.copy(color = CustomTheme.colors.accent)
+                style = CustomTheme.typography.textRegular.copy(color = CustomTheme.colors.accent),
+                modifier = Modifier.clickable(
+                    interactionSource = interactionSource,
+                    indication = ripple()
+                ) { navigateToProfileCreationScreen() }
             )
         }
         Spacer(Modifier.height(CustomTheme.elevation.spacing40dp))
@@ -109,7 +127,7 @@ fun PasswordCreationScreen(
                             .clip(CircleShape)
                             .clickable(
                                 interactionSource = remember { MutableInteractionSource() },
-                                indication = null
+                                indication = ripple()
                             ) { viewModel.removeNumber() }
                     ) {
                         Icon(

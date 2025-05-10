@@ -7,6 +7,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.radlance.championshipfinal.presentation.auth.PasswordCreationScreen
+import com.radlance.championshipfinal.presentation.auth.ProfileCreationScreen
 import com.radlance.championshipfinal.presentation.auth.SignInScreen
 import com.radlance.championshipfinal.presentation.splash.SplashScreen
 import com.radlance.uikit.theme.CustomTheme
@@ -34,7 +35,15 @@ fun NavGraph(
         }
 
         composable<PasswordCreation> {
-            PasswordCreationScreen()
+            PasswordCreationScreen(
+                navigateToProfileCreationScreen = {
+                    navController.navigate(ProfileCreation)
+                }
+            )
+        }
+
+        composable<ProfileCreation> {
+            ProfileCreationScreen()
         }
     }
 }

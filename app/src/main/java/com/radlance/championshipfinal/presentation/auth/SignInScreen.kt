@@ -23,6 +23,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
@@ -42,6 +43,7 @@ fun SignInScreen(
 ) {
     var emailFieldValue by rememberSaveable { mutableStateOf("") }
     var passwordFieldValue by rememberSaveable { mutableStateOf("") }
+    val keyboardController = LocalSoftwareKeyboardController.current
 
     Column(
         modifier = modifier
@@ -89,7 +91,10 @@ fun SignInScreen(
         )
         Spacer(Modifier.height(14.dp))
         AppButton(
-            onClick = navigateToPasswordCreationScreen,
+            onClick = {
+                keyboardController?.hide()
+                navigateToPasswordCreationScreen()
+            },
             label = stringResource(R.string.next),
             buttonState = ButtonState.Big,
             enabled = emailFieldValue.isNotEmpty() && passwordFieldValue.isNotEmpty()
@@ -115,13 +120,17 @@ fun SignInScreen(
             )
 
             LoginButton(
-                onClick = {},
+                onClick = {
+                    keyboardController?.hide()
+                },
                 label = stringResource(R.string.sign_in_with_vk),
                 icon = com.radlance.uikit.R.drawable.ic_vk_login
             )
 
             LoginButton(
-                onClick = {},
+                onClick = {
+                    keyboardController?.hide()
+                },
                 label = stringResource(R.string.sign_in_with_yandex),
                 icon = com.radlance.uikit.R.drawable.ic_yandex_login
             )

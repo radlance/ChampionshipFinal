@@ -212,10 +212,11 @@ fun Components() {
                 Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
                     BubbleButton(
                         icon = R.drawable.ic_back,
+                        onClick = {},
                         state = BubbleButtonState.Small
                     )
-                    BubbleButton(icon = R.drawable.ic_filter)
-                    BubbleButton(icon = R.drawable.ic_message)
+                    BubbleButton(icon = R.drawable.ic_filter, onClick = {})
+                    BubbleButton(icon = R.drawable.ic_message, onClick = {})
                 }
                 PrimaryCard(
                     title = "Рубашка Воскресенье для машинного вязания",
