@@ -11,6 +11,7 @@ import com.radlance.championshipfinal.presentation.auth.PasswordCreationScreen
 import com.radlance.championshipfinal.presentation.auth.ProfileCreationScreen
 import com.radlance.championshipfinal.presentation.auth.ResetPasswordScreen
 import com.radlance.championshipfinal.presentation.auth.SignInScreen
+import com.radlance.championshipfinal.presentation.home.HomeScreen
 import com.radlance.championshipfinal.presentation.splash.SplashScreen
 import com.radlance.uikit.theme.CustomTheme
 
@@ -25,7 +26,13 @@ fun NavGraph(
         modifier = modifier.background(CustomTheme.colors.white)
     ) {
         composable<Splash> {
-            SplashScreen(onDelayFinished = { navController.navigate(SignIn) })
+            SplashScreen(
+                onDelayFinished = {
+                    navController.navigate(SignIn) {
+                        popUpTo<Splash> { inclusive = true }
+                    }
+                }
+            )
         }
 
         composable<SignIn> {
@@ -46,7 +53,13 @@ fun NavGraph(
         }
 
         composable<ProfileCreation> {
-            ProfileCreationScreen()
+            ProfileCreationScreen(
+                navigateToHome = {
+                    navController.navigate(Home) {
+                        popUpTo<SignIn> { inclusive = true }
+                    }
+                }
+            )
         }
 
         composable<OtpEnter> {
@@ -60,8 +73,15 @@ fun NavGraph(
             ResetPasswordScreen(
                 onBackPressed = {
                     navController.navigate(SignIn) { popUpTo<SignIn>() }
+                },
+                navigateToSignInScreen = {
+                    navController.popBackStack(route = SignIn, inclusive = false)
                 }
             )
+        }
+
+        composable<Home> {
+            HomeScreen()
         }
     }
 }

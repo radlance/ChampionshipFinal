@@ -16,6 +16,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -27,6 +28,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.radlance.championshipfinal.R
 import com.radlance.uikit.component.button.AppButton
 import com.radlance.uikit.component.button.ButtonState
@@ -36,11 +38,22 @@ import com.radlance.uikit.theme.CustomTheme
 @Composable
 fun ResetPasswordScreen(
     onBackPressed: () -> Unit,
-    modifier: Modifier = Modifier
+    navigateToSignInScreen: () -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: AuthViewModel = hiltViewModel()
 ) {
+    val authUiState by viewModel.authUiState.collectAsState()
+    val resetPasswordResultUiState by viewModel.recoverPasswordResultUiState.collectAsState()
+
     var passwordFieldValue by rememberSaveable { mutableStateOf("") }
     var confirmPasswordFieldValue by rememberSaveable { mutableStateOf("") }
     val keyboardController = LocalSoftwareKeyboardController.current
+
+    resetPasswordResultUiState.Show(
+        onSuccess = { navigateToSignInScreen() },
+        onError = {},
+        onLoading = { keyboardController?.hide() }
+    )
 
     BackHandler(onBack = onBackPressed)
     Column(
@@ -71,8 +84,11 @@ fun ResetPasswordScreen(
         Spacer(Modifier.height(CustomTheme.elevation.spacing64dp))
         EnterInputField(
             value = passwordFieldValue,
-            onValueChange = { passwordFieldValue = it },
-            errorMessage = "",
+            onValueChange = {
+                passwordFieldValue = it
+                viewModel.resetPasswordError()
+            },
+            errorMessage = authUiState.invalidPasswordMessage,
             label = stringResource(R.string.new_password),
             hint = "",
             isPassword = true,
@@ -81,8 +97,11 @@ fun ResetPasswordScreen(
         Spacer(Modifier.height(14.dp))
         EnterInputField(
             value = confirmPasswordFieldValue,
-            onValueChange = { confirmPasswordFieldValue = it },
-            errorMessage = "",
+            onValueChange = {
+                confirmPasswordFieldValue = it
+                viewModel.resetConfirmPasswordError()
+            },
+            errorMessage = authUiState.invalidConfirmPasswordMessage,
             label = stringResource(R.string.reply_password),
             hint = "",
             isPassword = true,
@@ -91,7 +110,7 @@ fun ResetPasswordScreen(
         Spacer(Modifier.height(10.dp))
         AppButton(
             onClick = {
-                keyboardController?.hide()
+                viewModel.recoverPassword(passwordFieldValue, confirmPasswordFieldValue)
             },
             label = stringResource(R.string.next),
             buttonState = ButtonState.Big,

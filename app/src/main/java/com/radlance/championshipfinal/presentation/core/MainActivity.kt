@@ -9,7 +9,9 @@ import androidx.compose.material3.Scaffold
 import androidx.navigation.compose.rememberNavController
 import com.radlance.championshipfinal.presentation.navigation.NavGraph
 import com.radlance.uikit.theme.CustomTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {

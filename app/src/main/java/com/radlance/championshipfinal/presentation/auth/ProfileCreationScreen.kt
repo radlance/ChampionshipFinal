@@ -11,13 +11,16 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.radlance.championshipfinal.R
 import com.radlance.uikit.component.button.AppButton
 import com.radlance.uikit.component.button.ButtonState
@@ -26,7 +29,15 @@ import com.radlance.uikit.component.select.AppSelector
 import com.radlance.uikit.theme.CustomTheme
 
 @Composable
-fun ProfileCreationScreen(modifier: Modifier = Modifier) {
+fun ProfileCreationScreen(
+    navigateToHome: () -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: AuthViewModel = hiltViewModel()
+) {
+    val keyboardController = LocalSoftwareKeyboardController.current
+    val authUiState by viewModel.authUiState.collectAsState()
+    val signUpResultUiState by viewModel.signUpResultUiState.collectAsState()
+
     var nameFieldValue by rememberSaveable { mutableStateOf("") }
     var patronymicFieldValue by rememberSaveable { mutableStateOf("") }
     var lastNameFieldValue by rememberSaveable { mutableStateOf("") }
@@ -34,6 +45,11 @@ fun ProfileCreationScreen(modifier: Modifier = Modifier) {
     var telegramFieldValue by rememberSaveable { mutableStateOf("") }
     var selectedGender by rememberSaveable { mutableStateOf<String?>(null) }
 
+    signUpResultUiState.Show(
+        onSuccess = { navigateToHome() },
+        onError = {},
+        onLoading = { keyboardController?.hide() }
+    )
 
     Column(
         modifier = modifier
@@ -65,8 +81,11 @@ fun ProfileCreationScreen(modifier: Modifier = Modifier) {
         Column(verticalArrangement = Arrangement.spacedBy(CustomTheme.elevation.spacing24dp)) {
             EnterInputField(
                 value = nameFieldValue,
-                onValueChange = { nameFieldValue = it },
-                errorMessage = "",
+                onValueChange = {
+                    nameFieldValue = it
+                    viewModel.resetFirstNameError()
+                },
+                errorMessage = authUiState.invalidFirstNameMessage,
                 label = "",
                 hint = stringResource(R.string.name_hint),
                 selectedBorderColor = CustomTheme.colors.inputIcon
@@ -74,8 +93,11 @@ fun ProfileCreationScreen(modifier: Modifier = Modifier) {
 
             EnterInputField(
                 value = patronymicFieldValue,
-                onValueChange = { patronymicFieldValue = it },
-                errorMessage = "",
+                onValueChange = {
+                    patronymicFieldValue = it
+                    viewModel.resetPatronymicError()
+                },
+                errorMessage = authUiState.invalidPatronymicMessage,
                 label = "",
                 hint = stringResource(R.string.patronymic_hint),
                 selectedBorderColor = CustomTheme.colors.inputIcon
@@ -83,8 +105,11 @@ fun ProfileCreationScreen(modifier: Modifier = Modifier) {
 
             EnterInputField(
                 value = lastNameFieldValue,
-                onValueChange = { lastNameFieldValue = it },
-                errorMessage = "",
+                onValueChange = {
+                    lastNameFieldValue = it
+                    viewModel.resetLastFirstNameError()
+                },
+                errorMessage = authUiState.invalidLastNameMessage,
                 label = "",
                 hint = stringResource(R.string.last_name_hint),
                 selectedBorderColor = CustomTheme.colors.inputIcon
@@ -92,8 +117,11 @@ fun ProfileCreationScreen(modifier: Modifier = Modifier) {
 
             EnterInputField(
                 value = dateOfBirthFieldValue,
-                onValueChange = { dateOfBirthFieldValue = it },
-                errorMessage = "",
+                onValueChange = {
+                    dateOfBirthFieldValue = it
+                    viewModel.resetDateOfBirthError()
+                },
+                errorMessage = authUiState.invalidDateOfBirthMessage,
                 label = "",
                 hint = stringResource(R.string.date_of_birth_hint),
                 selectedBorderColor = CustomTheme.colors.inputIcon
@@ -112,15 +140,30 @@ fun ProfileCreationScreen(modifier: Modifier = Modifier) {
 
             EnterInputField(
                 value = telegramFieldValue,
-                onValueChange = { telegramFieldValue = it },
-                errorMessage = "",
+                onValueChange = {
+                    telegramFieldValue = it
+                    viewModel.resetTelegramError()
+                },
+                errorMessage = authUiState.invalidTelegramMessage,
                 label = "",
                 hint = stringResource(R.string.telegram_hint)
             )
         }
+        Spacer(Modifier.height(CustomTheme.elevation.spacing24dp))
         Spacer(Modifier.weight(1f))
         AppButton(
-            onClick = {},
+            onClick = {
+                selectedGender?.let {
+                    viewModel.createProfile(
+                        firstName = nameFieldValue,
+                        patronymic = patronymicFieldValue,
+                        lastName = lastNameFieldValue,
+                        dateOfBirth = dateOfBirthFieldValue,
+                        gender = it,
+                        telegram = telegramFieldValue
+                    )
+                }
+            },
             label = stringResource(R.string.create),
             enabled = nameFieldValue.isNotEmpty()
                     && patronymicFieldValue.isNotEmpty()

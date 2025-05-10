@@ -28,3 +28,7 @@ object OtpEnter : Destination
 @Keep
 @Serializable
 object ResetPassword : Destination
+
+@Keep
+@Serializable
+object Home : Destination

@@ -20,6 +20,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -33,6 +34,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.radlance.championshipfinal.R
 import com.radlance.uikit.component.button.AppButton
 import com.radlance.uikit.component.button.ButtonState
@@ -44,11 +46,21 @@ import com.radlance.uikit.theme.CustomTheme
 fun SignInScreen(
     navigateToOtpEnter: () -> Unit,
     navigateToPasswordCreation: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: AuthViewModel = hiltViewModel()
 ) {
+    val signInResultUiState by viewModel.signInResultUiState.collectAsState()
+    val authUiState by viewModel.authUiState.collectAsState()
+
     var emailFieldValue by rememberSaveable { mutableStateOf("") }
     var passwordFieldValue by rememberSaveable { mutableStateOf("") }
     val keyboardController = LocalSoftwareKeyboardController.current
+
+    signInResultUiState.Show(
+        onSuccess = { navigateToPasswordCreation() },
+        onError = {},
+        onLoading = { keyboardController?.hide() }
+    )
 
     Column(
         modifier = modifier
@@ -78,8 +90,11 @@ fun SignInScreen(
         Spacer(Modifier.height(CustomTheme.elevation.spacing64dp))
         EnterInputField(
             value = emailFieldValue,
-            onValueChange = { emailFieldValue = it },
-            errorMessage = "",
+            onValueChange = {
+                emailFieldValue = it
+                viewModel.resetEmailError()
+            },
+            errorMessage = authUiState.invalidEmailMessage,
             label = stringResource(R.string.email_sign_in),
             hint = stringResource(R.string.email_hint),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
@@ -87,8 +102,11 @@ fun SignInScreen(
         Spacer(Modifier.height(14.dp))
         EnterInputField(
             value = passwordFieldValue,
-            onValueChange = { passwordFieldValue = it },
-            errorMessage = "",
+            onValueChange = {
+                passwordFieldValue = it
+                viewModel.resetPasswordError()
+            },
+            errorMessage = authUiState.invalidPasswordMessage,
             label = stringResource(R.string.password),
             hint = "",
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
@@ -97,8 +115,7 @@ fun SignInScreen(
         Spacer(Modifier.height(14.dp))
         AppButton(
             onClick = {
-                keyboardController?.hide()
-                navigateToPasswordCreation()
+                viewModel.signIn(emailFieldValue, passwordFieldValue)
             },
             label = stringResource(R.string.next),
             buttonState = ButtonState.Big,

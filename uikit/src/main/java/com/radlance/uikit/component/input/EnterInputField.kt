@@ -63,9 +63,9 @@ fun EnterInputField(
 
     val borderColor by animateColorAsState(
         when {
+            errorMessage.isNotEmpty() -> CustomTheme.colors.error
             value.isNotEmpty() && !hasFocus -> selectedBorderColor
             hasFocus && errorMessage.isEmpty() -> CustomTheme.colors.accent
-            errorMessage.isNotEmpty() -> CustomTheme.colors.error
             else -> CustomTheme.colors.inputStroke
         }
     )

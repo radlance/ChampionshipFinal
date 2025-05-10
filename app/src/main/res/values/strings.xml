@@ -33,4 +33,14 @@
     <string name="new_password">Новый пароль</string>
     <string name="reply_password">Повторите пароль</string>
     <string name="enter_new_password">Введите новый пароль</string>
+    <string name="enter_your_first_name">Введите ваше имя</string>
+    <string name="enter_your_last_name">Введите вашу фамилию</string>
+    <string name="enter_your_patronymic">Введите ваше отчество</string>
+    <string name="enter_your_date_of_birth">Введите вашу дату рождения</string>
+    <string name="enter_your_telegram">Введите ваш telegram</string>
+    <string name="enter_your_email">Введите ваш email</string>
+    <string name="enter_your_password">Введите ваш пароль</string>
+    <string name="invalid_email_format">Неправильный формат email</string>
+    <string name="invalid_password_format">Минимум 8 символов: заглавные и строчные буквы, цифры, спецсимволы</string>
+    <string name="passsword_are_not_the_same">Пароли не совпадают</string>
 </resources>
