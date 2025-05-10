@@ -39,8 +39,11 @@ import com.radlance.uikit.component.input.EnterInputField
 import com.radlance.uikit.component.input.SingleInputField
 import com.radlance.uikit.component.search.AppSearchField
 import com.radlance.uikit.component.select.AppSelector
-import com.radlance.uikit.component.tabbar.BottomTab
 import com.radlance.uikit.component.tabbar.BottomTabBar
+import com.radlance.uikit.component.tabbar.Catalog
+import com.radlance.uikit.component.tabbar.Home
+import com.radlance.uikit.component.tabbar.Profile
+import com.radlance.uikit.component.tabbar.Projects
 import com.radlance.uikit.theme.CustomTheme
 
 @Composable
@@ -61,9 +64,10 @@ fun Components() {
     Scaffold(
         bottomBar = {
             BottomTabBar(
-                selectedTab = BottomTab.Home,
+                routes = sequenceOf("Home"),
                 onTabClick = {},
-                bottomPadding = 0.dp
+                bottomPadding = 0.dp,
+                tabs = listOf(Home, Catalog, Projects, Profile)
             )
         }
     ) { contentPadding ->

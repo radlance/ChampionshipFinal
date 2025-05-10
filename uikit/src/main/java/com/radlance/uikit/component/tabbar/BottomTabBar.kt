@@ -20,7 +20,8 @@ import com.radlance.uikit.theme.CustomTheme
 
 @Composable
 fun BottomTabBar(
-    selectedTab: BottomTab,
+    tabs: List<BottomTab>,
+    routes: Sequence<String?>?,
     onTabClick: (BottomTab) -> Unit,
     modifier: Modifier = Modifier,
     bottomPadding: Dp
@@ -39,16 +40,21 @@ fun BottomTabBar(
             Spacer(Modifier.height(8.dp))
             Row(
                 horizontalArrangement = Arrangement.SpaceAround,
-                modifier = Modifier.fillMaxSize().padding(bottom = 8.dp),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(bottom = 8.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                val tabs =
-                    listOf(BottomTab.Home, BottomTab.Catalog, BottomTab.Projects, BottomTab.Profile)
+
                 tabs.forEach { tab ->
+                    val selected = routes?.any {
+                        it == tab::class.qualifiedName
+                    } ?: false
+
                     BottomTabItem(
                         bottomTab = tab,
-                        selected = tab == selectedTab,
-                        onTabClick = onTabClick
+                        selected = selected,
+                        onTabClick = { if (!selected) onTabClick(it) }
                     )
                 }
             }

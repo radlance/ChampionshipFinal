@@ -31,4 +31,4 @@ object ResetPassword : Destination
 
 @Keep
 @Serializable
-object Home : Destination
+object Main : Destination

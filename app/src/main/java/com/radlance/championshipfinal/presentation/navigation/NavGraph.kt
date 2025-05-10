@@ -1,22 +1,24 @@
 package com.radlance.championshipfinal.presentation.navigation
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.radlance.championshipfinal.presentation.auth.recover.OtpEnterScreen
 import com.radlance.championshipfinal.presentation.auth.core.PasswordCreationScreen
 import com.radlance.championshipfinal.presentation.auth.core.ProfileCreationScreen
-import com.radlance.championshipfinal.presentation.auth.recover.ResetPasswordScreen
 import com.radlance.championshipfinal.presentation.auth.core.SignInScreen
-import com.radlance.championshipfinal.presentation.home.HomeScreen
+import com.radlance.championshipfinal.presentation.auth.recover.OtpEnterScreen
+import com.radlance.championshipfinal.presentation.auth.recover.ResetPasswordScreen
+import com.radlance.championshipfinal.presentation.core.MainScreen
 import com.radlance.championshipfinal.presentation.splash.SplashScreen
 import com.radlance.uikit.theme.CustomTheme
 
 @Composable
 fun NavGraph(
+    contentPadding: PaddingValues,
     navController: NavHostController,
     modifier: Modifier = Modifier
 ) {
@@ -55,7 +57,7 @@ fun NavGraph(
         composable<ProfileCreation> {
             ProfileCreationScreen(
                 navigateToHome = {
-                    navController.navigate(Home) {
+                    navController.navigate(Main) {
                         popUpTo<SignIn> { inclusive = true }
                     }
                 }
@@ -80,8 +82,8 @@ fun NavGraph(
             )
         }
 
-        composable<Home> {
-            HomeScreen()
+        composable<Main> {
+            MainScreen(bottomContentPadding = contentPadding.calculateBottomPadding())
         }
     }
 }
