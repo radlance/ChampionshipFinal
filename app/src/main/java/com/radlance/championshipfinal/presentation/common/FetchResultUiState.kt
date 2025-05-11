@@ -11,7 +11,7 @@ interface FetchResultUiState<T> {
         onLoading: @Composable (T?) -> Unit
     )
 
-    class Success<T>(private val data: T) : FetchResultUiState<T> {
+    class Success<T>(val data: T) : FetchResultUiState<T> {
         @Composable
         override fun Show(
             onSuccess: @Composable (T) -> Unit,

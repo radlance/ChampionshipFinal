@@ -9,6 +9,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.radlance.championshipfinal.presentation.home.HomeScreen
 import com.radlance.uikit.component.tabbar.Catalog
 import com.radlance.uikit.component.tabbar.Home
 import com.radlance.uikit.component.tabbar.Profile
@@ -28,9 +29,7 @@ fun BottomNavGraph(
         modifier = modifier.background(CustomTheme.colors.white)
     ) {
         composable<Home> {
-            Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
-                Text(text = "Home")
-            }
+            HomeScreen()
         }
 
         composable<Catalog> {

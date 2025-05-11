@@ -2,7 +2,6 @@ package com.radlance.uikit.component.button
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
@@ -44,7 +43,7 @@ interface ButtonState {
 
         override fun height(): Dp = 40.dp
 
-        override fun appButtonWidth(): Modifier = Modifier.width(96.dp)
+        override fun appButtonWidth(): Modifier = Modifier
 
         @Composable
         override fun style(): TextStyle = CustomTheme.typography.captionSemiBold
@@ -54,7 +53,7 @@ interface ButtonState {
 
         override fun height(): Dp = 48.dp
 
-        override fun appButtonWidth(): Modifier = Modifier.width(126.dp)
+        override fun appButtonWidth(): Modifier = Modifier
 
         @Composable
         override fun style(): TextStyle = CustomTheme.typography.textMedium

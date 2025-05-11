@@ -32,7 +32,8 @@ class AuthViewModel @Inject constructor(
 
         with(authUiState.value) {
             if (invalidEmailMessage.isBlank() && invalidPasswordMessage.isBlank()) {
-                handle(action = { _signInResultUiState.value = FetchResultUiState.Loading() }) {
+                _signInResultUiState.value = FetchResultUiState.Loading()
+                handle(action = {}) {
                     _signInResultUiState.value = FetchResultUiState.Success(Unit)
                 }
             }
@@ -63,7 +64,8 @@ class AuthViewModel @Inject constructor(
                 && invalidDateOfBirthMessage.isBlank()
                 && invalidTelegramMessage.isBlank()
             ) {
-                handle(action = { _signUpResultUiState.value = FetchResultUiState.Loading() }) {
+                _signUpResultUiState.value = FetchResultUiState.Loading()
+                handle(action = {}) {
                     _signUpResultUiState.value = FetchResultUiState.Success(Unit)
                 }
             }
@@ -75,11 +77,8 @@ class AuthViewModel @Inject constructor(
 
         with(authUiState.value) {
             if (invalidPasswordMessage.isBlank() && invalidConfirmPasswordMessage.isBlank()) {
-                handle(
-                    action = {
-                        _recoverPasswordResultUiState.value = FetchResultUiState.Loading()
-                    }
-                ) {
+                _recoverPasswordResultUiState.value = FetchResultUiState.Loading()
+                handle(action = {}) {
                     _recoverPasswordResultUiState.value = FetchResultUiState.Success(Unit)
                 }
             }

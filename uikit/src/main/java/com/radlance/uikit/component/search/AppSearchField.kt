@@ -7,6 +7,7 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -31,7 +32,8 @@ fun AppSearchField(
     onValueChange: (String) -> Unit,
     hint: String,
     modifier: Modifier = Modifier,
-    cancellable: Boolean = false
+    showCancelWord: Boolean = false,
+    showClearIcon: Boolean = false
 ) {
     val interactionSource = remember { MutableInteractionSource() }
 
@@ -56,7 +58,7 @@ fun AppSearchField(
                 tint = CustomTheme.colors.description
             )
             Spacer(Modifier.width(CustomTheme.elevation.spacing8dp))
-            Box {
+            Box(modifier = Modifier.weight(1f)) {
                 if (value.isEmpty()) {
                     Text(
                         text = hint,
@@ -69,24 +71,26 @@ fun AppSearchField(
                     singleLine = true,
                     cursorBrush = SolidColor(CustomTheme.colors.accent),
                     onValueChange = onValueChange,
-                    textStyle = CustomTheme.typography.textRegular
+                    textStyle = CustomTheme.typography.textRegular,
+                    modifier = Modifier.fillMaxWidth()
                 )
             }
-            Spacer(Modifier.weight(1f))
-            Icon(
-                painter = painterResource(R.drawable.ic_close),
-                contentDescription = "ic_close",
-                tint = CustomTheme.colors.description,
-                modifier = Modifier.clickable(
-                    interactionSource = interactionSource,
-                    indication = null
-                ) {
-                    onValueChange("")
-                }
-            )
-            Spacer(Modifier.width(14.dp))
+            if (showClearIcon) {
+                Icon(
+                    painter = painterResource(R.drawable.ic_close),
+                    contentDescription = "ic_close",
+                    tint = CustomTheme.colors.description,
+                    modifier = Modifier.clickable(
+                        interactionSource = interactionSource,
+                        indication = null
+                    ) {
+                        onValueChange("")
+                    }
+                )
+                Spacer(Modifier.width(14.dp))
+            }
         }
-        if (cancellable) {
+        if (showCancelWord) {
             Spacer(Modifier.width(CustomTheme.elevation.spacing16dp))
             Text(
                 text = stringResource(R.string.cancel),

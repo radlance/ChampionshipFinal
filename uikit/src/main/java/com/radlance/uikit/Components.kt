@@ -147,7 +147,7 @@ fun Components() {
                     value = secondSearchFieldValue,
                     onValueChange = { secondSearchFieldValue = it },
                     hint = "Искать описание",
-                    cancellable = true
+                    showCancelWord = true
                 )
 
                 AppButton(
@@ -226,12 +226,14 @@ fun Components() {
                     title = "Рубашка Воскресенье для машинного вязания",
                     category = "Мужская одежда",
                     price = 300,
+                    onCartClick = {},
                     inCart = false
                 )
                 PrimaryCard(
                     title = "Рубашка Воскресенье для машинного вязания",
                     category = "Мужская одежда",
                     price = 300,
+                    onCartClick = {},
                     inCart = true
                 )
 

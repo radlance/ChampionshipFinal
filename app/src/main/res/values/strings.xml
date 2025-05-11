@@ -43,4 +43,9 @@
     <string name="invalid_email_format">Неправильный формат email</string>
     <string name="invalid_password_format">Минимум 8 символов: заглавные и строчные буквы, цифры, спецсимволы</string>
     <string name="passsword_are_not_the_same">Пароли не совпадают</string>
+    <string name="sales_and_news">Акции и новости</string>
+    <string name="search_descriptions">Искать описания</string>
+    <string name="сatalog_of_descriptions">Каталог описаний</string>
+    <string name="loading_error">Ошибка загрузки</string>
+    <string name="retry">Повторить</string>
 </resources>

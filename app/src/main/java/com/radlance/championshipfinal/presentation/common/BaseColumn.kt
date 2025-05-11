@@ -9,11 +9,13 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.Dp
 import com.radlance.uikit.theme.CustomTheme
 
 @Composable
 fun BaseColumn(
     modifier: Modifier = Modifier,
+    horizontalPadding: Dp = CustomTheme.elevation.spacing20dp,
     content: @Composable ColumnScope.() -> Unit
 ) {
     Column(
@@ -21,7 +23,7 @@ fun BaseColumn(
             .safeDrawingPadding()
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
-            .padding(horizontal = CustomTheme.elevation.spacing20dp)
+            .padding(horizontal = horizontalPadding)
     ) {
         content()
     }

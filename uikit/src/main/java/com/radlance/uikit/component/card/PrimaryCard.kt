@@ -21,6 +21,7 @@ fun PrimaryCard(
     category: String,
     price: Int,
     inCart: Boolean,
+    onCartClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     PrimaryCardBackground {
@@ -48,13 +49,13 @@ fun PrimaryCard(
                 Spacer(Modifier.weight(1f))
                 if (inCart) {
                     OutlinedAppButton(
-                        onClick = {},
+                        onClick = onCartClick,
                         label = stringResource(R.string.remove),
                         buttonState = ButtonState.Small
                     )
                 } else {
                     AppButton(
-                        onClick = {},
+                        onClick = onCartClick,
                         label = stringResource(R.string.add),
                         buttonState = ButtonState.Small
                     )
