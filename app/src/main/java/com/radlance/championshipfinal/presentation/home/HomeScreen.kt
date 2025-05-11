@@ -175,15 +175,19 @@ fun HomeScreen(
                         items = fetchContent.products.filter { it.categoryId == selectedCategoryId },
                         key = { it.id }
                     ) { product ->
-                        PrimaryCard(
-                            title = product.title,
-                            category = fetchContent.categories.first {
-                                it.id == selectedCategoryId
-                            }.title,
-                            price = product.price,
-                            onCartClick = { viewModel.changeProductInCartStatus(product.id) },
-                            inCart = product.inCart
-                        )
+                        with(product) {
+                            PrimaryCard(
+                                title = title,
+                                category = fetchContent.categories.first {
+                                    it.id == selectedCategoryId
+                                }.title,
+                                price = price,
+                                onCartClick = { viewModel.changeProductInCartStatus(id) },
+                                inCart = inCart,
+                                description = description,
+                                materialCost = materialCost
+                            )
+                        }
                     }
                 }
             },

@@ -227,6 +227,8 @@ fun Components() {
                     category = "Мужская одежда",
                     price = 300,
                     onCartClick = {},
+                    description = "",
+                    materialCost = "",
                     inCart = false
                 )
                 PrimaryCard(
@@ -234,6 +236,8 @@ fun Components() {
                     category = "Мужская одежда",
                     price = 300,
                     onCartClick = {},
+                    description = "",
+                    materialCost = "",
                     inCart = true
                 )
 

@@ -1,6 +1,5 @@
 package com.radlance.uikit.component.select
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -16,7 +15,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.material3.ripple
@@ -33,6 +31,7 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.radlance.uikit.R
+import com.radlance.uikit.component.card.AppModalBottomSheet
 import com.radlance.uikit.theme.CustomTheme
 import kotlinx.coroutines.launch
 
@@ -53,16 +52,13 @@ fun AppSelector(
     val scope = rememberCoroutineScope()
 
     if (showBottomSheet) {
-        ModalBottomSheet(
-            onDismissRequest = { showBottomSheet = false },
+        AppModalBottomSheet(
             sheetState = sheetState,
-            dragHandle = null,
-            containerColor = CustomTheme.colors.white
+            onDismissRequest = { showBottomSheet = false }
         ) {
 
             Column(modifier = Modifier) {
-                Spacer(Modifier.height(CustomTheme.elevation.spacing24dp))
-                options.forEachIndexed { index, option ->
+                options.forEach { option ->
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier.heightIn(min = 40.dp)
@@ -87,23 +83,6 @@ fun AppSelector(
                                     }
                                 }
                         )
-                        if (index == 0) {
-                            Image(
-                                painter = painterResource(R.drawable.ic_dismiss),
-                                contentDescription = "ic_dismiss",
-                                modifier = Modifier.clickable(
-                                    interactionSource = remember { MutableInteractionSource() },
-                                    indication = null
-                                ) {
-                                    scope.launch { sheetState.hide() }.invokeOnCompletion {
-                                        if (!sheetState.isVisible) {
-                                            showBottomSheet = false
-                                        }
-                                    }
-                                }
-                            )
-                        }
-                        Spacer(Modifier.width(20.dp))
                     }
                 }
                 Spacer(Modifier.height(CustomTheme.elevation.spacing64dp))

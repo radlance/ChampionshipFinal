@@ -7,4 +7,7 @@
     <string name="profile">Профиль</string>
     <string name="remove">Убрать</string>
     <string name="add">Добавить</string>
+    <string name="description">Описание</string>
+    <string name="approximate_cost">Примерный расход:</string>
+    <string name="add_by">Добавить за %1$s ₽</string>
 </resources>
