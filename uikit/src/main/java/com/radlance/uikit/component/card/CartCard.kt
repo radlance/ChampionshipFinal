@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -22,8 +23,7 @@ fun CartCard(
     title: String,
     price: Int,
     quantity: Int,
-    onDecrementClick: (Int) -> Unit,
-    onIncrementClick: (Int) -> Unit,
+    onChangeQuantity: (Int, increment: Boolean) -> Unit,
     modifier: Modifier = Modifier
 ) {
     PrimaryCardBackground(modifier = modifier) {
@@ -51,11 +51,11 @@ fun CartCard(
                     text = stringResource(R.string.cart_quantity, quantity),
                     style = CustomTheme.typography.textRegular
                 )
-                Spacer(Modifier.weight(1f))
+                Spacer(Modifier.width(42.dp))
                 ChangeQuantityButton(
                     quantity = quantity,
-                    onDecrementClick = onDecrementClick,
-                    onIncrementClick = onIncrementClick
+                    onDecrementClick = { onChangeQuantity(it, false) },
+                    onIncrementClick = { onChangeQuantity(it, true) }
                 )
             }
         }

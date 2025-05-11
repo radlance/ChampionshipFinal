@@ -6,8 +6,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.radlance.championshipfinal.presentation.home.ProductViewModel
 import com.radlance.championshipfinal.presentation.navigation.BottomNavGraph
 import com.radlance.championshipfinal.presentation.navigation.rememberNavigationState
 import com.radlance.uikit.component.tabbar.BottomTabBar
@@ -21,7 +23,8 @@ import com.radlance.uikit.component.tabbar.Projects
 fun MainScreen(
     bottomContentPadding: Dp,
     navigateToCart: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    productViewModel: ProductViewModel = hiltViewModel()
 ) {
 
     val navigationState = rememberNavigationState()
@@ -40,6 +43,10 @@ fun MainScreen(
         },
         modifier = modifier
     ) {
-        BottomNavGraph(navigationState = navigationState, navigateToCart = navigateToCart)
+        BottomNavGraph(
+            navigationState = navigationState,
+            navigateToCart = navigateToCart,
+            productViewModel = productViewModel
+        )
     }
 }

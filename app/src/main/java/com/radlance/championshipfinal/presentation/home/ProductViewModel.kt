@@ -29,6 +29,11 @@ class ProductViewModel @Inject constructor(
     val changeInCartStatusUiState: StateFlow<FetchResultUiState<Int>>
         get() = _changeInCartStatusUiState.asStateFlow()
 
+    private val _updateProductQuantityUiState =
+        MutableStateFlow<FetchResultUiState<Int>>(FetchResultUiState.Initial())
+    val updateProductQuantityUiState: StateFlow<FetchResultUiState<Int>>
+        get() = _updateProductQuantityUiState.asStateFlow()
+
     fun fetchContent() {
         _fetchResultUiState.value = FetchResultUiState.Loading()
         handle(action = productRepository::fetchHomeContent) {
@@ -48,12 +53,38 @@ class ProductViewModel @Inject constructor(
         }
     }
 
+    fun changeProductQuantity(productId: Int, newQuantity: Int) {
+        _updateProductQuantityUiState.value = FetchResultUiState.Loading(productId)
+        handle(
+            action = {
+                delay(100)
+                productRepository.changeCartQuantity(productId, newQuantity)
+            }
+        ) {
+            _updateProductQuantityUiState.value = it.map(FetchResultMapper())
+        }
+    }
+
     fun updateLocalInCartStatus(productId: Int) {
         val state = _fetchResultUiState.value
         if (state is FetchResultUiState.Success) {
             val updatedProducts = state.data.products.map {
                 if (it.id == productId) {
                     it.copy(quantityInCart = if (it.quantityInCart == 0) 1 else 0)
+                } else it
+            }
+
+            val updatedState = state.data.copy(products = updatedProducts)
+            _fetchResultUiState.value = FetchResultUiState.Success(updatedState)
+        }
+    }
+
+    fun updateLocalQuantity(productId: Int, increment: Boolean) {
+        val state = _fetchResultUiState.value
+        if (state is FetchResultUiState.Success) {
+            val updatedProducts = state.data.products.map {
+                if (it.id == productId) {
+                    it.copy(quantityInCart = if (increment) it.quantityInCart.inc() else it.quantityInCart.dec())
                 } else it
             }
 

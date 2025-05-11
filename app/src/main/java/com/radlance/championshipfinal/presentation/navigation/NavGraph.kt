@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -14,6 +15,7 @@ import com.radlance.championshipfinal.presentation.auth.recover.OtpEnterScreen
 import com.radlance.championshipfinal.presentation.auth.recover.ResetPasswordScreen
 import com.radlance.championshipfinal.presentation.catalog.CartScreen
 import com.radlance.championshipfinal.presentation.core.MainScreen
+import com.radlance.championshipfinal.presentation.home.ProductViewModel
 import com.radlance.championshipfinal.presentation.splash.SplashScreen
 import com.radlance.uikit.theme.CustomTheme
 
@@ -21,11 +23,12 @@ import com.radlance.uikit.theme.CustomTheme
 fun NavGraph(
     contentPadding: PaddingValues,
     navController: NavHostController,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    productViewModel: ProductViewModel = hiltViewModel()
 ) {
     NavHost(
         navController = navController,
-        startDestination = Splash,
+        startDestination = Main,
         modifier = modifier.background(CustomTheme.colors.white)
     ) {
         composable<Splash> {
@@ -86,12 +89,13 @@ fun NavGraph(
         composable<Main> {
             MainScreen(
                 bottomContentPadding = contentPadding.calculateBottomPadding(),
-                navigateToCart = { navController.navigate(Cart) }
+                navigateToCart = { navController.navigate(Cart) },
+                productViewModel = productViewModel
             )
         }
 
         composable<Cart> {
-            CartScreen(onBackPressed = navController::navigateUp)
+            CartScreen(onBackPressed = navController::navigateUp, viewModel = productViewModel)
         }
     }
 }
