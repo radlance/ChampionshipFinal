@@ -1,16 +1,22 @@
 package com.radlance.uikit.component.card
 
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
+import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -24,6 +30,7 @@ fun CartCard(
     price: Int,
     quantity: Int,
     onChangeQuantity: (Int, increment: Boolean) -> Unit,
+    onRemove: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     PrimaryCardBackground(modifier = modifier) {
@@ -39,7 +46,14 @@ fun CartCard(
                     Icon(
                         painter = painterResource(R.drawable.ic_close),
                         contentDescription = null,
-                        tint = CustomTheme.colors.description
+                        tint = CustomTheme.colors.description,
+                        modifier = Modifier
+                            .clip(CircleShape)
+                            .clickable(
+                                interactionSource = remember { MutableInteractionSource() },
+                                indication = ripple(),
+                                onClick = onRemove
+                            )
                     )
                 }
             }

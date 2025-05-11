@@ -2,6 +2,7 @@ package com.radlance.championshipfinal.presentation.catalog
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -40,7 +41,22 @@ fun CartScreen(
 ) {
     val fetchResultUiState by viewModel.fetchResultUiState.collectAsState()
     val updateQuantityUiState by viewModel.updateProductQuantityUiState.collectAsState()
+    val removeProductFromCartUiState by viewModel.removeProductFromCartUiState.collectAsState()
     var incrementCurrent by rememberSaveable { mutableStateOf(false) }
+
+    removeProductFromCartUiState.Show(
+        onSuccess = {},
+        onError = { id ->
+            LaunchedEffect(Unit) {
+                id?.let { viewModel.removeLocalProductFromCart(it, recover = true) }
+            }
+        },
+        onLoading = { id ->
+            LaunchedEffect(Unit) {
+                id?.let { viewModel.removeLocalProductFromCart(it) }
+            }
+        }
+    )
 
     updateQuantityUiState.Show(
         onSuccess = {},
@@ -69,55 +85,71 @@ fun CartScreen(
         fetchResultUiState.Show(
             onSuccess = { fetchContent ->
                 val cartItems = fetchContent.products.filter { it.quantityInCart != 0 }
-                LazyColumn(
-                    modifier = Modifier.weight(1f),
-                    verticalArrangement = Arrangement.spacedBy(CustomTheme.elevation.spacing32dp)
-                ) {
-                    items(items = cartItems, key = { it.id }) { cartItem ->
-                        with(cartItem) {
-                            CartCard(
-                                title = title,
-                                price = price,
-                                quantity = quantityInCart,
-                                onChangeQuantity = { quantity, increment ->
-                                    viewModel.changeProductQuantity(cartItem.id, quantity)
-                                    incrementCurrent = increment
-                                }
+                if (cartItems.isEmpty()) {
+                    Box(modifier = Modifier.weight(1f).fillMaxWidth(), contentAlignment = Alignment.Center) {
+                        Text(
+                            text = stringResource(R.string.no_products_in_cart),
+                            style = CustomTheme.typography.title3SemiBold.copy(
+                                color = CustomTheme.colors.placeholder
                             )
+                        )
+                    }
+                } else {
+                    LazyColumn(
+                        modifier = Modifier.weight(1f),
+                        verticalArrangement = Arrangement.spacedBy(CustomTheme.elevation.spacing32dp)
+                    ) {
+                        items(items = cartItems, key = { it.id }) { cartItem ->
+                            with(cartItem) {
+                                CartCard(
+                                    title = title,
+                                    price = price,
+                                    quantity = quantityInCart,
+                                    onChangeQuantity = { quantity, increment ->
+                                        viewModel.changeProductQuantity(id, quantity)
+                                        incrementCurrent = increment
+                                    },
+                                    onRemove = { viewModel.removeProductFromCart(id) }
+                                )
+                            }
+                        }
+
+                        item {
+                            Row(modifier = Modifier.padding(vertical = CustomTheme.elevation.spacing32dp)) {
+                                Text(
+                                    text = stringResource(R.string.sum),
+                                    style = CustomTheme.typography.title2SemiBold
+                                )
+                                Spacer(Modifier.weight(1f))
+                                Text(
+                                    text = "${cartItems.sumOf { it.price * it.quantityInCart }} ₽",
+                                    style = CustomTheme.typography.title2SemiBold
+                                )
+                            }
                         }
                     }
 
-                    item {
-                        Row(modifier = Modifier.padding(vertical = CustomTheme.elevation.spacing32dp)) {
-                            Text(
-                                text = stringResource(R.string.sum),
-                                style = CustomTheme.typography.title2SemiBold
-                            )
-                            Spacer(Modifier.weight(1f))
-                            Text(
-                                text = "${cartItems.sumOf { it.price * it.quantityInCart }} ₽",
-                                style = CustomTheme.typography.title2SemiBold
-                            )
-                        }
-                    }
+                    AppButton(
+                        onClick = {},
+                        label = stringResource(R.string.move_to_checkout),
+                        buttonState = ButtonState.Big
+                    )
+                    Spacer(Modifier.height(32.dp))
                 }
-
-                AppButton(
-                    onClick = {},
-                    label = stringResource(R.string.move_to_checkout),
-                    buttonState = ButtonState.Big
-                )
-                Spacer(Modifier.height(32.dp))
             },
             onError = {
-                Box(
-                    contentAlignment = Alignment.Center,
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center,
                     modifier = Modifier
                         .weight(1f)
                         .fillMaxWidth()
                 ) {
                     Text(
                         text = stringResource(R.string.loading_error),
+                        style = CustomTheme.typography.title3SemiBold.copy(
+                            color = CustomTheme.colors.placeholder
+                        ),
                         modifier = Modifier.padding(vertical = CustomTheme.elevation.spacing8dp)
                     )
                     AppButton(

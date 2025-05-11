@@ -42,4 +42,16 @@ class LocalProductRepository @Inject constructor() : ProductRepository {
             FetchResult.Error(productId)
         }
     }
+
+    override suspend fun removeProductFromCart(productId: Int): FetchResult<Int> {
+        return try {
+            LocalStorage.products = LocalStorage.products.map {
+                if (it.id == productId) it.copy(quantityInCart = 0) else it
+            }
+
+            FetchResult.Success(productId)
+        } catch (e: Exception) {
+            FetchResult.Error(productId)
+        }
+    }
 }

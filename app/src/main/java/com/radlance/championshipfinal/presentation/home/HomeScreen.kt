@@ -3,6 +3,7 @@ package com.radlance.championshipfinal.presentation.home
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -247,14 +248,18 @@ fun HomeScreen(
                 }
             },
             onError = {
-                Box(
-                    contentAlignment = Alignment.Center,
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center,
                     modifier = Modifier
                         .weight(1f)
                         .fillMaxWidth()
                 ) {
                     Text(
                         text = stringResource(R.string.loading_error),
+                        style = CustomTheme.typography.title3SemiBold.copy(
+                            color = CustomTheme.colors.placeholder
+                        ),
                         modifier = Modifier.padding(vertical = CustomTheme.elevation.spacing8dp)
                     )
                     AppButton(

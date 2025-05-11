@@ -34,6 +34,13 @@ class ProductViewModel @Inject constructor(
     val updateProductQuantityUiState: StateFlow<FetchResultUiState<Int>>
         get() = _updateProductQuantityUiState.asStateFlow()
 
+    private val _removeProductFromCartUiState =
+        MutableStateFlow<FetchResultUiState<Int>>(FetchResultUiState.Initial())
+    val removeProductFromCartUiState: StateFlow<FetchResultUiState<Int>>
+        get() = _removeProductFromCartUiState.asStateFlow()
+
+    private var lastRemovedProductQuantity: Int = 0
+
     fun fetchContent() {
         _fetchResultUiState.value = FetchResultUiState.Loading()
         handle(action = productRepository::fetchHomeContent) {
@@ -62,6 +69,39 @@ class ProductViewModel @Inject constructor(
             }
         ) {
             _updateProductQuantityUiState.value = it.map(FetchResultMapper())
+        }
+    }
+
+    fun removeProductFromCart(productId: Int) {
+        _removeProductFromCartUiState.value = FetchResultUiState.Loading(productId)
+        handle(
+            action = {
+                delay(100)
+                productRepository.removeProductFromCart(productId)
+            }
+        ) {
+            _removeProductFromCartUiState.value = it.map(FetchResultMapper())
+        }
+    }
+
+    fun removeLocalProductFromCart(productId: Int, recover: Boolean = false) {
+        val state = _fetchResultUiState.value
+        if (state is FetchResultUiState.Success) {
+            val updatedProducts = state.data.products.map {
+                if (it.id == productId) {
+                    it.copy(
+                        quantityInCart = if (recover) {
+                            lastRemovedProductQuantity
+                        } else {
+                            lastRemovedProductQuantity = it.quantityInCart
+                            0
+                        }
+                    )
+                } else it
+            }
+
+            val updatedState = state.data.copy(products = updatedProducts)
+            _fetchResultUiState.value = FetchResultUiState.Success(updatedState)
         }
     }
 

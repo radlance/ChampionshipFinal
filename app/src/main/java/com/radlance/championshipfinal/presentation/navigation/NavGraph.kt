@@ -28,7 +28,7 @@ fun NavGraph(
 ) {
     NavHost(
         navController = navController,
-        startDestination = Main,
+        startDestination = Splash,
         modifier = modifier.background(CustomTheme.colors.white)
     ) {
         composable<Splash> {

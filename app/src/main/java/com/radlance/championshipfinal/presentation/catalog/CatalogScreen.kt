@@ -73,13 +73,9 @@ fun CatalogScreen(
         }
     )
 
-
-
-
     fetchResultUiState.Show(
         onSuccess = { fetchContent ->
             Box {
-
                 BaseColumn(modifier = modifier, horizontalPadding = 0.dp) {
                     Spacer(Modifier.height(CustomTheme.elevation.spacing24dp))
                     AppSearchField(
@@ -231,12 +227,18 @@ fun CatalogScreen(
             }
         },
         onError = {
-            Box(
-                contentAlignment = Alignment.Center,
-                modifier = Modifier.fillMaxSize()
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .safeGesturesPadding()
             ) {
                 Text(
                     text = stringResource(R.string.loading_error),
+                    style = CustomTheme.typography.title3SemiBold.copy(
+                        color = CustomTheme.colors.placeholder
+                    ),
                     modifier = Modifier.padding(vertical = CustomTheme.elevation.spacing8dp)
                 )
                 AppButton(
