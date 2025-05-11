@@ -20,6 +20,7 @@ import com.radlance.uikit.component.tabbar.Projects
 @Composable
 fun MainScreen(
     bottomContentPadding: Dp,
+    navigateToCart: () -> Unit,
     modifier: Modifier = Modifier
 ) {
 
@@ -39,6 +40,6 @@ fun MainScreen(
         },
         modifier = modifier
     ) {
-        BottomNavGraph(navigationState = navigationState)
+        BottomNavGraph(navigationState = navigationState, navigateToCart = navigateToCart)
     }
 }

@@ -24,7 +24,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import com.radlance.uikit.R
@@ -36,15 +35,15 @@ fun AppSearchField(
     onValueChange: (String) -> Unit,
     hint: String,
     modifier: Modifier = Modifier,
-    showCancelWord: Boolean = false
+    additionalContent: @Composable () -> Unit = {}
 ) {
     val interactionSource = remember { MutableInteractionSource() }
     val keyboardController = LocalSoftwareKeyboardController.current
 
-    Row(verticalAlignment = Alignment.CenterVertically) {
+    Row(verticalAlignment = Alignment.CenterVertically, modifier = modifier) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            modifier = modifier
+            modifier = Modifier
                 .height(CustomTheme.elevation.spacing48dp)
                 .clip(RoundedCornerShape(10.dp))
                 .background(CustomTheme.colors.inputBg)
@@ -96,14 +95,7 @@ fun AppSearchField(
                 Spacer(Modifier.width(14.dp))
             }
         }
-        if (showCancelWord) {
-            Spacer(Modifier.width(CustomTheme.elevation.spacing16dp))
-            Text(
-                text = stringResource(R.string.cancel),
-                style = CustomTheme.typography.captionRegular.copy(
-                    color = CustomTheme.colors.accent
-                )
-            )
-        }
+        additionalContent()
+
     }
 }

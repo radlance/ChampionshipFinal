@@ -40,7 +40,7 @@ fun CartButton(
                 disabledContainerColor = CustomTheme.colors.accentInactive
             )
         ) {}
-        Row(modifier = Modifier.fillMaxWidth()) {
+        Row(modifier = modifier.fillMaxWidth()) {
             Spacer(Modifier.width(16.dp))
             Icon(
                 painter = painterResource(R.drawable.ic_cart),

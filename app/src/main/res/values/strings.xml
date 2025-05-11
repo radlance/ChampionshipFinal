@@ -49,4 +49,5 @@
     <string name="loading_error">Ошибка загрузки</string>
     <string name="retry">Повторить</string>
     <string name="nothng_found">Ничего не найдено</string>
+    <string name="to_cart">В корзину</string>
 </resources>

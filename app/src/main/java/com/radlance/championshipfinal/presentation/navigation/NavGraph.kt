@@ -1,8 +1,12 @@
 package com.radlance.championshipfinal.presentation.navigation
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -24,7 +28,7 @@ fun NavGraph(
 ) {
     NavHost(
         navController = navController,
-        startDestination = Main,
+        startDestination = Splash,
         modifier = modifier.background(CustomTheme.colors.white)
     ) {
         composable<Splash> {
@@ -83,7 +87,16 @@ fun NavGraph(
         }
 
         composable<Main> {
-            MainScreen(bottomContentPadding = contentPadding.calculateBottomPadding())
+            MainScreen(
+                bottomContentPadding = contentPadding.calculateBottomPadding(),
+                navigateToCart = { navController.navigate(Cart) }
+            )
+        }
+
+        composable<Cart> {
+            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                Text(text = "Cart")
+            }
         }
     }
 }

@@ -32,3 +32,7 @@ object ResetPassword : Destination
 @Keep
 @Serializable
 object Main : Destination
+
+@Keep
+@Serializable
+object Cart : Destination

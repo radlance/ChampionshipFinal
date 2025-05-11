@@ -5,7 +5,7 @@ import com.radlance.championshipfinal.domain.home.Product
 
 object LocalStorage {
     var categories = listOf(
-        Category(id = 1, title = "Популярное"),
+        Category(id = 1, title = "Популярные"),
         Category(id = 2, title = "Женщинам"),
         Category(id = 3, title = "Мужчинам"),
         Category(id = 4, title = "Детям"),
@@ -39,7 +39,7 @@ object LocalStorage {
     }
 
     var products = createProducts(
-        1 to 3,
+        1 to 7,
         2 to 2,
         3 to 4
     )
