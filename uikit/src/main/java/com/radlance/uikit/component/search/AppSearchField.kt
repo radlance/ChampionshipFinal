@@ -12,6 +12,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -20,8 +22,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import com.radlance.uikit.R
 import com.radlance.uikit.theme.CustomTheme
@@ -32,10 +36,10 @@ fun AppSearchField(
     onValueChange: (String) -> Unit,
     hint: String,
     modifier: Modifier = Modifier,
-    showCancelWord: Boolean = false,
-    showClearIcon: Boolean = false
+    showCancelWord: Boolean = false
 ) {
     val interactionSource = remember { MutableInteractionSource() }
+    val keyboardController = LocalSoftwareKeyboardController.current
 
     Row(verticalAlignment = Alignment.CenterVertically) {
         Row(
@@ -70,12 +74,14 @@ fun AppSearchField(
                     value = value,
                     singleLine = true,
                     cursorBrush = SolidColor(CustomTheme.colors.accent),
+                    keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Search),
+                    keyboardActions = KeyboardActions(onSearch = { keyboardController?.hide() }),
                     onValueChange = onValueChange,
                     textStyle = CustomTheme.typography.textRegular,
                     modifier = Modifier.fillMaxWidth()
                 )
             }
-            if (showClearIcon) {
+            if (value.isNotEmpty()) {
                 Icon(
                     painter = painterResource(R.drawable.ic_close),
                     contentDescription = "ic_close",

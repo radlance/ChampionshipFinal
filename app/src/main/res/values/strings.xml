@@ -48,4 +48,5 @@
     <string name="сatalog_of_descriptions">Каталог описаний</string>
     <string name="loading_error">Ошибка загрузки</string>
     <string name="retry">Повторить</string>
+    <string name="nothng_found">Ничего не найдено</string>
 </resources>

@@ -67,126 +67,181 @@ fun HomeScreen(
         }
     )
 
-    BaseColumn(modifier = modifier.padding(bottom = 67.dp), horizontalPadding = 0.dp) {
-        Spacer(Modifier.height(CustomTheme.elevation.spacing24dp))
-        AppSearchField(
-            value = searchFieldValue,
-            onValueChange = { searchFieldValue = it },
-            hint = stringResource(R.string.search_descriptions),
-            modifier = Modifier.padding(horizontal = CustomTheme.elevation.spacing20dp)
-        )
-        Spacer(Modifier.height(CustomTheme.elevation.spacing32dp))
+    BaseColumn(modifier = modifier, horizontalPadding = 0.dp) {
         fetchResultUiState.Show(
             onSuccess = { fetchContent ->
-                Text(
-                    text = stringResource(R.string.sales_and_news),
-                    style = CustomTheme.typography.title3SemiBold.copy(
-                        color = CustomTheme.colors.placeholder
-                    ),
+                Spacer(Modifier.height(CustomTheme.elevation.spacing24dp))
+                AppSearchField(
+                    value = searchFieldValue,
+                    onValueChange = { searchFieldValue = it },
+                    hint = stringResource(R.string.search_descriptions),
                     modifier = Modifier.padding(horizontal = CustomTheme.elevation.spacing20dp)
                 )
-                Spacer(Modifier.height(CustomTheme.elevation.spacing16dp))
-
-                LazyRow(
-                    horizontalArrangement = Arrangement.spacedBy(CustomTheme.elevation.spacing16dp),
-                    contentPadding = PaddingValues(horizontal = CustomTheme.elevation.spacing20dp)
-                ) {
-                    val sales = listOf(
-                        Sale(
-                            title = "Рубашка воскресенье",
-                            price = 8000,
-                            imageResId = R.drawable.sale_example_first,
-                            backgroundBrush = Brush.linearGradient(
-                                colors = listOf(
-                                    Color(0xFF76B3FF),
-                                    Color(0xFFCDE3FF)
-                                )
-                            ),
-                            offset = { IntOffset(x = 90, y = 0) }
-                        ),
-                        Sale(
-                            title = "Шорты вторник",
-                            price = 4000,
-                            imageResId = R.drawable.sale_example_second,
-                            backgroundBrush = Brush.linearGradient(
-                                colors = listOf(
-                                    Color(0xFF97D9F0),
-                                    Color(0xFF92E9D4)
-                                )
-                            ),
-                            offset = { IntOffset(1, 1) },
-                            scale = 1.2f
-                        )
-                    )
-
-                    items(items = sales, key = { it.title }) { sale ->
-                        SaleCard(sale)
+                if (searchFieldValue.isNotBlank()) {
+                    val searchResult = fetchContent.products.filter {
+                        it.title.contains(searchFieldValue, ignoreCase = true)
                     }
-                }
 
-                Spacer(Modifier.height(CustomTheme.elevation.spacing32dp))
-
-                Text(
-                    text = stringResource(R.string.сatalog_of_descriptions),
-                    style = CustomTheme.typography.title3SemiBold.copy(
-                        color = CustomTheme.colors.placeholder
-                    ),
-                    modifier = Modifier.padding(horizontal = CustomTheme.elevation.spacing20dp)
-                )
-                Spacer(Modifier.height(CustomTheme.elevation.spacing16dp))
-
-
-                var selectedCategoryId by rememberSaveable { mutableIntStateOf(1) }
-
-                LazyRow(
-                    horizontalArrangement = Arrangement.spacedBy(CustomTheme.elevation.spacing16dp),
-                    contentPadding = PaddingValues(horizontal = CustomTheme.elevation.spacing20dp)
-                ) {
-                    items(
-                        items = fetchContent.categories,
-                        key = { category -> category.id }) { category ->
-                        Crossfade(selectedCategoryId) { categoryId ->
-                            if (category.id == categoryId) {
-                                AppButton(
-                                    onClick = { selectedCategoryId = category.id },
-                                    label = category.title,
-                                    buttonState = ButtonState.Chips
+                    if (searchResult.isNotEmpty()) {
+                        LazyColumn(
+                            verticalArrangement = Arrangement.spacedBy(CustomTheme.elevation.spacing16dp),
+                            contentPadding = PaddingValues(
+                                start = CustomTheme.elevation.spacing20dp,
+                                end = CustomTheme.elevation.spacing20dp,
+                                top = 25.dp,
+                                bottom = 92.dp
+                            ),
+                            modifier = Modifier.weight(1f)
+                        ) {
+                            items(
+                                items = searchResult,
+                                key = { it.id }
+                            ) { product ->
+                                with(product) {
+                                    PrimaryCard(
+                                        title = title,
+                                        category = fetchContent.categories.first {
+                                            it.id == categoryId
+                                        }.title,
+                                        price = price,
+                                        onCartClick = { viewModel.changeProductInCartStatus(id) },
+                                        inCart = inCart,
+                                        description = description,
+                                        materialCost = materialCost
+                                    )
+                                }
+                            }
+                        }
+                    } else {
+                        Box(
+                            contentAlignment = Alignment.Center,
+                            modifier = Modifier
+                                .weight(1f)
+                                .fillMaxWidth()
+                        ) {
+                            Text(
+                                text = stringResource(R.string.nothng_found),
+                                style = CustomTheme.typography.title3SemiBold.copy(
+                                    color = CustomTheme.colors.placeholder
                                 )
-                            } else {
-                                SecondaryButton(
-                                    onClick = { selectedCategoryId = category.id },
-                                    label = category.title,
-                                    buttonState = ButtonState.Chips
-                                )
+                            )
+                        }
+                    }
+                } else {
+                    Spacer(Modifier.height(CustomTheme.elevation.spacing32dp))
+
+                    Text(
+                        text = stringResource(R.string.sales_and_news),
+                        style = CustomTheme.typography.title3SemiBold.copy(
+                            color = CustomTheme.colors.placeholder
+                        ),
+                        modifier = Modifier.padding(horizontal = CustomTheme.elevation.spacing20dp)
+                    )
+                    Spacer(Modifier.height(CustomTheme.elevation.spacing16dp))
+
+                    LazyRow(
+                        horizontalArrangement = Arrangement.spacedBy(CustomTheme.elevation.spacing16dp),
+                        contentPadding = PaddingValues(horizontal = CustomTheme.elevation.spacing20dp)
+                    ) {
+                        val sales = listOf(
+                            Sale(
+                                title = "Рубашка воскресенье",
+                                price = 8000,
+                                imageResId = R.drawable.sale_example_first,
+                                backgroundBrush = Brush.linearGradient(
+                                    colors = listOf(
+                                        Color(0xFF76B3FF),
+                                        Color(0xFFCDE3FF)
+                                    )
+                                ),
+                                offset = { IntOffset(x = 90, y = 0) }
+                            ),
+                            Sale(
+                                title = "Шорты вторник",
+                                price = 4000,
+                                imageResId = R.drawable.sale_example_second,
+                                backgroundBrush = Brush.linearGradient(
+                                    colors = listOf(
+                                        Color(0xFF97D9F0),
+                                        Color(0xFF92E9D4)
+                                    )
+                                ),
+                                offset = { IntOffset(1, 1) },
+                                scale = 1.2f
+                            )
+                        )
+
+                        items(items = sales, key = { it.title }) { sale ->
+                            SaleCard(sale)
+                        }
+                    }
+
+                    Spacer(Modifier.height(CustomTheme.elevation.spacing32dp))
+
+                    Text(
+                        text = stringResource(R.string.сatalog_of_descriptions),
+                        style = CustomTheme.typography.title3SemiBold.copy(
+                            color = CustomTheme.colors.placeholder
+                        ),
+                        modifier = Modifier.padding(horizontal = CustomTheme.elevation.spacing20dp)
+                    )
+                    Spacer(Modifier.height(CustomTheme.elevation.spacing16dp))
+
+
+                    var selectedCategoryId by rememberSaveable { mutableIntStateOf(1) }
+
+                    LazyRow(
+                        horizontalArrangement = Arrangement.spacedBy(CustomTheme.elevation.spacing16dp),
+                        contentPadding = PaddingValues(horizontal = CustomTheme.elevation.spacing20dp)
+                    ) {
+                        items(
+                            items = fetchContent.categories,
+                            key = { category -> category.id }) { category ->
+                            Crossfade(selectedCategoryId) { categoryId ->
+                                if (category.id == categoryId) {
+                                    AppButton(
+                                        onClick = { selectedCategoryId = category.id },
+                                        label = category.title,
+                                        buttonState = ButtonState.Chips
+                                    )
+                                } else {
+                                    SecondaryButton(
+                                        onClick = { selectedCategoryId = category.id },
+                                        label = category.title,
+                                        buttonState = ButtonState.Chips
+                                    )
+                                }
                             }
                         }
                     }
-                }
 
-                LazyColumn(
-                    verticalArrangement = Arrangement.spacedBy(CustomTheme.elevation.spacing16dp),
-                    contentPadding = PaddingValues(
-                        horizontal = CustomTheme.elevation.spacing20dp,
-                        vertical = 25.dp
-                    ),
-                    modifier = Modifier.weight(1f)
-                ) {
-                    items(
-                        items = fetchContent.products.filter { it.categoryId == selectedCategoryId },
-                        key = { it.id }
-                    ) { product ->
-                        with(product) {
-                            PrimaryCard(
-                                title = title,
-                                category = fetchContent.categories.first {
-                                    it.id == selectedCategoryId
-                                }.title,
-                                price = price,
-                                onCartClick = { viewModel.changeProductInCartStatus(id) },
-                                inCart = inCart,
-                                description = description,
-                                materialCost = materialCost
-                            )
+                    LazyColumn(
+                        verticalArrangement = Arrangement.spacedBy(CustomTheme.elevation.spacing16dp),
+                        contentPadding = PaddingValues(
+                            start = CustomTheme.elevation.spacing20dp,
+                            end = CustomTheme.elevation.spacing20dp,
+                            top = 25.dp,
+                            bottom = 92.dp
+                        ),
+                        modifier = Modifier.weight(1f)
+                    ) {
+                        items(
+                            items = fetchContent.products.filter { it.categoryId == selectedCategoryId },
+                            key = { it.id }
+                        ) { product ->
+                            with(product) {
+                                PrimaryCard(
+                                    title = title,
+                                    category = fetchContent.categories.first {
+                                        it.id == categoryId
+                                    }.title,
+                                    price = price,
+                                    onCartClick = { viewModel.changeProductInCartStatus(id) },
+                                    inCart = inCart,
+                                    description = description,
+                                    materialCost = materialCost
+                                )
+                            }
                         }
                     }
                 }
