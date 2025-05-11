@@ -41,7 +41,7 @@ class ProductViewModel @Inject constructor(
         handle(
             action = {
                 delay(100) // TODO remove with real network queries
-                productRepository.changeInCartStatus(productId)
+                productRepository.addProductToCart(productId)
             }
         ) {
             _changeInCartStatusUiState.value = it.map(FetchResultMapper())
@@ -53,7 +53,7 @@ class ProductViewModel @Inject constructor(
         if (state is FetchResultUiState.Success) {
             val updatedProducts = state.data.products.map {
                 if (it.id == productId) {
-                    it.copy(inCart = !it.inCart)
+                    it.copy(quantityInCart = if (it.quantityInCart == 0) 1 else 0)
                 } else it
             }
 

@@ -7,5 +7,5 @@ data class Product(
     val categoryId: Int,
     val price: Int,
     val materialCost: String,
-    val inCart: Boolean
+    val quantityInCart: Int
 )

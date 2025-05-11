@@ -50,4 +50,7 @@
     <string name="retry">Повторить</string>
     <string name="nothng_found">Ничего не найдено</string>
     <string name="to_cart">В корзину</string>
+    <string name="cart">Корзина</string>
+    <string name="sum">Сумма</string>
+    <string name="move_to_checkout">Перейти к оформлению заказа</string>
 </resources>

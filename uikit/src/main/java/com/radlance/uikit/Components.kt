@@ -277,7 +277,11 @@ fun Components() {
                     status = "Куплено"
                 )
 
-                BigHeader(title = "Корзина")
+                BigHeader(
+                    title = "Корзина",
+                    onBackPressed = {},
+                    onRemoveClick = {}
+                )
                 SmallHeader(title = "Корзина")
             }
         }

@@ -125,7 +125,7 @@ fun CatalogScreen(
                                             }.title,
                                             price = price,
                                             onCartClick = { viewModel.changeProductInCartStatus(id) },
-                                            inCart = inCart,
+                                            inCart = quantityInCart != 0,
                                             description = description,
                                             materialCost = materialCost
                                         )
@@ -199,7 +199,7 @@ fun CatalogScreen(
                                         }.title,
                                         price = price,
                                         onCartClick = { viewModel.changeProductInCartStatus(id) },
-                                        inCart = inCart,
+                                        inCart = quantityInCart != 0,
                                         description = description,
                                         materialCost = materialCost
                                     )
@@ -209,7 +209,7 @@ fun CatalogScreen(
                     }
                 }
                 val totalPrice = fetchContent.products.filter {
-                    it.inCart
+                    it.quantityInCart != 0
                 }.sumOf { it.price }
 
                 if (totalPrice > 0) {

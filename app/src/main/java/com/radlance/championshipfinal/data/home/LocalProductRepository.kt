@@ -19,10 +19,10 @@ class LocalProductRepository @Inject constructor() : ProductRepository {
         }
     }
 
-    override suspend fun changeInCartStatus(productId: Int): FetchResult<Int> {
+    override suspend fun addProductToCart(productId: Int): FetchResult<Int> {
         return try {
             LocalStorage.products = LocalStorage.products.map {
-                if (it.id == productId) it.copy(inCart = !it.inCart) else it
+                if (it.id == productId) it.copy(quantityInCart = 1) else it
             }
 
             FetchResult.Success(productId)

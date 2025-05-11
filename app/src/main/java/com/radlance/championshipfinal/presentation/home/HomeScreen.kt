@@ -105,7 +105,7 @@ fun HomeScreen(
                                         }.title,
                                         price = price,
                                         onCartClick = { viewModel.changeProductInCartStatus(id) },
-                                        inCart = inCart,
+                                        inCart = quantityInCart != 0,
                                         description = description,
                                         materialCost = materialCost
                                     )
@@ -237,7 +237,7 @@ fun HomeScreen(
                                     }.title,
                                     price = price,
                                     onCartClick = { viewModel.changeProductInCartStatus(id) },
-                                    inCart = inCart,
+                                    inCart = quantityInCart != 0,
                                     description = description,
                                     materialCost = materialCost
                                 )

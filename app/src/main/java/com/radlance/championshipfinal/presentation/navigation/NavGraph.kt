@@ -1,12 +1,8 @@
 package com.radlance.championshipfinal.presentation.navigation
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -16,6 +12,7 @@ import com.radlance.championshipfinal.presentation.auth.core.ProfileCreationScre
 import com.radlance.championshipfinal.presentation.auth.core.SignInScreen
 import com.radlance.championshipfinal.presentation.auth.recover.OtpEnterScreen
 import com.radlance.championshipfinal.presentation.auth.recover.ResetPasswordScreen
+import com.radlance.championshipfinal.presentation.catalog.CartScreen
 import com.radlance.championshipfinal.presentation.core.MainScreen
 import com.radlance.championshipfinal.presentation.splash.SplashScreen
 import com.radlance.uikit.theme.CustomTheme
@@ -94,9 +91,7 @@ fun NavGraph(
         }
 
         composable<Cart> {
-            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                Text(text = "Cart")
-            }
+            CartScreen(onBackPressed = navController::navigateUp)
         }
     }
 }

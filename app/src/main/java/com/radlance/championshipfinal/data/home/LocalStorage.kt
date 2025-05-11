@@ -29,7 +29,7 @@ object LocalStorage {
                     id = idCounter++,
                     title = PRODUCT_TITLE,
                     categoryId = categoryId,
-                    inCart = false,
+                    quantityInCart = 0,
                     price = PRODUCT_PRICE,
                     description = PRODUCT_DESCRIPTION,
                     materialCost = PRODUCT_MATERIAL_COST

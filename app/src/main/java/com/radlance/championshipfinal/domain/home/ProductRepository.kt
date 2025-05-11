@@ -6,5 +6,5 @@ interface ProductRepository {
 
     suspend fun fetchHomeContent(): FetchResult<FetchContent>
 
-    suspend fun changeInCartStatus(productId: Int): FetchResult<Int>
+    suspend fun addProductToCart(productId: Int): FetchResult<Int>
 }
