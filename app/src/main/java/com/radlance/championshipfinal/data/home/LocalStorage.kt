@@ -90,6 +90,8 @@ object LocalStorage {
         )
     )
 
-    var profiles = mutableListOf<User>(/*User(email = "abc@abc.abc", password = "123456Aa!")*/)
+    var profiles = mutableListOf(
+        User(email = "abc@abc.abc", password = "123456Aa!", firstName = "Эдуард")
+    )
     var currentUser: User? = null
 }

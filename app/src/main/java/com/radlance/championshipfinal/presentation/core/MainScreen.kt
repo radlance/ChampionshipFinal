@@ -23,6 +23,7 @@ import com.radlance.uikit.component.tabbar.Projects
 fun MainScreen(
     bottomContentPadding: Dp,
     navigateToCart: () -> Unit,
+    navigateToSignIn: () -> Unit,
     modifier: Modifier = Modifier,
     productViewModel: ProductViewModel = hiltViewModel()
 ) {
@@ -46,6 +47,7 @@ fun MainScreen(
         BottomNavGraph(
             navigationState = navigationState,
             navigateToCart = navigateToCart,
+            navigateToSignIn = navigateToSignIn,
             productViewModel = productViewModel
         )
     }

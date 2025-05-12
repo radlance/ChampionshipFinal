@@ -47,6 +47,7 @@ kapt {
 }
 
 dependencies {
+    implementation(libs.androidx.datastore.preferences)
     kapt(libs.hilt.android.compiler)
     implementation(libs.hilt.android)
     implementation(libs.hilt.android)

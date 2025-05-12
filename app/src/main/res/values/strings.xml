@@ -72,4 +72,9 @@
     <string name="save">Сохранить</string>
     <string name="loading">Загрузка…</string>
     <string name="auth_error">Ошибка авторизации</string>
+    <string name="my_orders">Мои заказы</string>
+    <string name="notifications">Уведомления</string>
+    <string name="privacy_policy">Политика конфиденциальности</string>
+    <string name="user_agreement">Пользовательское соглашение</string>
+    <string name="exit">Выход</string>
 </resources>

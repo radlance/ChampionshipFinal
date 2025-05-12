@@ -104,6 +104,11 @@ fun NavGraph(
             MainScreen(
                 bottomContentPadding = contentPadding.calculateBottomPadding(),
                 navigateToCart = { navController.navigate(Cart) },
+                navigateToSignIn = {
+                    navController.navigate(SignIn) {
+                        popUpTo(0) { inclusive = true }
+                    }
+                },
                 productViewModel = productViewModel
             )
         }

@@ -25,6 +25,7 @@ import com.radlance.uikit.theme.CustomTheme
 @Composable
 fun BottomNavGraph(
     navigateToCart: () -> Unit,
+    navigateToSignIn: () -> Unit,
     navigationState: BottomNavigationState,
     modifier: Modifier = Modifier,
     productViewModel: ProductViewModel = hiltViewModel()
@@ -78,7 +79,7 @@ fun BottomNavGraph(
 
 
         composable<Profile> {
-            ProfileScreen()
+            ProfileScreen(navigateToSignIn = navigateToSignIn)
         }
     }
 }
