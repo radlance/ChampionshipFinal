@@ -15,11 +15,17 @@ object SignIn : Destination
 
 @Keep
 @Serializable
-object PasswordCreation : Destination
+data class PasswordCreation(
+    val email: String,
+    val password: String
+) : Destination
 
 @Keep
 @Serializable
-object ProfileCreation : Destination
+data class ProfileCreation(
+    val email: String,
+    val password: String
+) : Destination
 
 @Keep
 @Serializable

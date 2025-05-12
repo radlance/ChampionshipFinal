@@ -1,5 +1,7 @@
 package com.radlance.championshipfinal.data.di
 
+import com.radlance.championshipfinal.data.auth.LocalAuthRepository
+import com.radlance.championshipfinal.domain.auth.AuthRepository
 import com.radlance.championshipfinal.presentation.auth.common.ValidationAuth
 import dagger.Binds
 import dagger.Module
@@ -12,4 +14,7 @@ interface AuthModule {
 
     @Binds
     fun provideValidationAuth(validationAuth: ValidationAuth.Base): ValidationAuth
+
+    @Binds
+    fun provideAuthRepository(authRepository: LocalAuthRepository): AuthRepository
 }

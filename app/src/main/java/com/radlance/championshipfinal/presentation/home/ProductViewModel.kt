@@ -6,7 +6,6 @@ import com.radlance.championshipfinal.presentation.common.BaseViewModel
 import com.radlance.championshipfinal.presentation.common.FetchResultMapper
 import com.radlance.championshipfinal.presentation.common.FetchResultUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -52,7 +51,7 @@ class ProductViewModel @Inject constructor(
         _changeInCartStatusUiState.value = FetchResultUiState.Loading(productId)
         handle(
             action = {
-                delay(100) // TODO remove with real network queries
+                // TODO remove with real network queries
                 productRepository.addProductToCart(productId)
             }
         ) {
@@ -64,7 +63,6 @@ class ProductViewModel @Inject constructor(
         _updateProductQuantityUiState.value = FetchResultUiState.Loading(productId)
         handle(
             action = {
-                delay(100)
                 productRepository.changeCartQuantity(productId, newQuantity)
             }
         ) {
@@ -76,7 +74,6 @@ class ProductViewModel @Inject constructor(
         _removeProductFromCartUiState.value = FetchResultUiState.Loading(productId)
         handle(
             action = {
-                delay(100)
                 productRepository.removeProductFromCart(productId)
             }
         ) {

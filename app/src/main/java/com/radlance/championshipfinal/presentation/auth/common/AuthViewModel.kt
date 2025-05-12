@@ -1,5 +1,8 @@
 package com.radlance.championshipfinal.presentation.auth.common
 
+import com.radlance.championshipfinal.domain.auth.AuthRepository
+import com.radlance.championshipfinal.domain.profile.User
+import com.radlance.championshipfinal.presentation.common.FetchResultMapper
 import com.radlance.championshipfinal.presentation.common.FetchResultUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -9,12 +12,13 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AuthViewModel @Inject constructor(
+    private val authRepository: AuthRepository,
     validation: ValidationAuth
 ) : BaseAuthViewModel(validation) {
 
     private val _signInResultUiState =
-        MutableStateFlow<FetchResultUiState<Unit>>(FetchResultUiState.Initial())
-    val signInResultUiState: StateFlow<FetchResultUiState<Unit>>
+        MutableStateFlow<FetchResultUiState<Boolean>>(FetchResultUiState.Initial())
+    val signInResultUiState: StateFlow<FetchResultUiState<Boolean>>
         get() = _signInResultUiState.asStateFlow()
 
     private val _signUpResultUiState =
@@ -33,14 +37,20 @@ class AuthViewModel @Inject constructor(
         with(authUiState.value) {
             if (invalidEmailMessage.isBlank() && invalidPasswordMessage.isBlank()) {
                 _signInResultUiState.value = FetchResultUiState.Loading()
-                handle(action = {}) {
-                    _signInResultUiState.value = FetchResultUiState.Success(Unit)
+                handle(
+                    action = {
+                        authRepository.signIn(User(email = email, password = password))
+                    }
+                ) {
+                    _signInResultUiState.value = it.map(FetchResultMapper())
                 }
             }
         }
     }
 
     fun createProfile(
+        email: String,
+        password: String,
         firstName: String,
         patronymic: String,
         lastName: String,
@@ -65,8 +75,23 @@ class AuthViewModel @Inject constructor(
                 && invalidTelegramMessage.isBlank()
             ) {
                 _signUpResultUiState.value = FetchResultUiState.Loading()
-                handle(action = {}) {
-                    _signUpResultUiState.value = FetchResultUiState.Success(Unit)
+                handle(
+                    action = {
+                        authRepository.signUp(
+                            User(
+                                email = email,
+                                password = password,
+                                firstName = firstName,
+                                patronymic = patronymic,
+                                lastName = lastName,
+                                dateOfBirth = dateOfBirth,
+                                gender = gender,
+                                telegram = telegram
+                            )
+                        )
+                    }
+                ) {
+                    _signUpResultUiState.value = it.map(FetchResultMapper())
                 }
             }
         }
@@ -83,5 +108,10 @@ class AuthViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    fun resetStates() {
+        _signInResultUiState.value = FetchResultUiState.Initial()
+        _signUpResultUiState.value = FetchResultUiState.Initial()
     }
 }

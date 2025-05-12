@@ -2,6 +2,7 @@ package com.radlance.championshipfinal.data.home
 
 import com.radlance.championshipfinal.domain.home.Category
 import com.radlance.championshipfinal.domain.home.Product
+import com.radlance.championshipfinal.domain.profile.User
 import com.radlance.championshipfinal.domain.project.Project
 import java.time.LocalDate
 
@@ -88,4 +89,7 @@ object LocalStorage {
             category = "some category"
         )
     )
+
+    var profiles = mutableListOf<User>(/*User(email = "abc@abc.abc", password = "123456Aa!")*/)
+    var currentUser: User? = null
 }

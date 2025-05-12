@@ -8,6 +8,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.toRoute
 import com.radlance.championshipfinal.presentation.auth.core.PasswordCreationScreen
 import com.radlance.championshipfinal.presentation.auth.core.ProfileCreationScreen
 import com.radlance.championshipfinal.presentation.auth.core.SignInScreen
@@ -28,7 +29,7 @@ fun NavGraph(
 ) {
     NavHost(
         navController = navController,
-        startDestination = Main,
+        startDestination = Splash,
         modifier = modifier.background(CustomTheme.colors.white)
     ) {
         composable<Splash> {
@@ -43,28 +44,41 @@ fun NavGraph(
 
         composable<SignIn> {
             SignInScreen(
-                navigateToPasswordCreation = {
-                    navController.navigate(PasswordCreation)
+                navigateToPasswordCreation = { email, password ->
+                    navController.navigate(PasswordCreation(email, password))
+                },
+                navigateToMainScreen = {
+                    navController.navigate(Main) {
+                        popUpTo<SignIn> {
+                            inclusive = true
+                        }
+                    }
                 },
                 navigateToOtpEnter = { navController.navigate(OtpEnter) }
             )
         }
 
         composable<PasswordCreation> {
+            val args = it.toRoute<PasswordCreation>()
+
             PasswordCreationScreen(
                 navigateToProfileCreationScreen = {
-                    navController.navigate(ProfileCreation)
+                    navController.navigate(ProfileCreation(args.email, args.password))
                 }
             )
         }
 
         composable<ProfileCreation> {
+            val args = it.toRoute<ProfileCreation>()
+
             ProfileCreationScreen(
                 navigateToHome = {
                     navController.navigate(Main) {
                         popUpTo<SignIn> { inclusive = true }
                     }
-                }
+                },
+                email = args.email,
+                password = args.password
             )
         }
 

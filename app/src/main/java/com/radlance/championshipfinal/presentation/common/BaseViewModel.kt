@@ -3,6 +3,7 @@ package com.radlance.championshipfinal.presentation.common
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -17,6 +18,7 @@ abstract class BaseViewModel : ViewModel() {
         ui: (T) -> Unit
     ) {
         viewModelScope.launch(Dispatchers.IO) {
+            delay(100)
             val result = action.invoke()
 
             withContext(Dispatchers.Main) {

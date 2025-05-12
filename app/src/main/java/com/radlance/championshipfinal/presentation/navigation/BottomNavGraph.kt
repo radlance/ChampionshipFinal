@@ -1,11 +1,7 @@
 package com.radlance.championshipfinal.presentation.navigation
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
@@ -15,6 +11,7 @@ import androidx.navigation.toRoute
 import com.radlance.championshipfinal.presentation.catalog.CatalogScreen
 import com.radlance.championshipfinal.presentation.home.HomeScreen
 import com.radlance.championshipfinal.presentation.home.ProductViewModel
+import com.radlance.championshipfinal.presentation.profile.ProfileScreen
 import com.radlance.championshipfinal.presentation.project.ProjectCreationScreen
 import com.radlance.championshipfinal.presentation.project.ProjectDetailsScreen
 import com.radlance.championshipfinal.presentation.project.ProjectScreen
@@ -81,9 +78,7 @@ fun BottomNavGraph(
 
 
         composable<Profile> {
-            Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
-                Text(text = "Profile")
-            }
+            ProfileScreen()
         }
     }
 }

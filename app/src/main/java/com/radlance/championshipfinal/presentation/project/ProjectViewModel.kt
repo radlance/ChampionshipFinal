@@ -6,7 +6,6 @@ import com.radlance.championshipfinal.presentation.common.BaseViewModel
 import com.radlance.championshipfinal.presentation.common.FetchResultMapper
 import com.radlance.championshipfinal.presentation.common.FetchResultUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -42,7 +41,6 @@ class ProjectViewModel @Inject constructor(
 
         handle(
             action = {
-                delay(100)
                 projectRepository.fetchProjects()
             }
         ) {
@@ -72,7 +70,6 @@ class ProjectViewModel @Inject constructor(
         _addProjectUiState.value = FetchResultUiState.Loading()
         handle(
             action = {
-                delay(100)
                 projectRepository.addProject(project)
             }
         ) {
@@ -104,7 +101,6 @@ class ProjectViewModel @Inject constructor(
         _updateProjectUiState.value = FetchResultUiState.Loading()
         handle(
             action = {
-                delay(100)
                 projectRepository.updateProject(project)
             }
         ) {
