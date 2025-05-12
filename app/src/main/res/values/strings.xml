@@ -69,4 +69,5 @@
     <string name="select_category">Выберите категорию</string>
     <string name="category">Категория</string>
     <string name="submit">Подтвердить</string>
+    <string name="save">Сохранить</string>
 </resources>

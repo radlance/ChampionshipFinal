@@ -46,7 +46,7 @@ object LocalStorage {
         3 to 4
     )
 
-    val projects = mutableListOf(
+    var projects = mutableListOf(
         Project(
             id = 1,
             type = "some type",

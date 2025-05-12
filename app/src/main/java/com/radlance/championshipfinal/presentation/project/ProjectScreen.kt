@@ -38,7 +38,7 @@ import com.radlance.uikit.theme.CustomTheme
 
 @Composable
 fun ProjectScreen(
-    navigateToProjectDetails: () -> Unit,
+    navigateToProjectDetails: (Int) -> Unit,
     navigateToProjectCreation: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: ProjectViewModel = hiltViewModel()
@@ -91,8 +91,9 @@ fun ProjectScreen(
                             with(project) {
                                 ProjectCard(
                                     title = name,
-                                    creationDate = startDate,
-                                    onProjectClick = navigateToProjectDetails
+                                    startDate = startDate,
+                                    endDate = endDate,
+                                    onProjectClick = { navigateToProjectDetails(project.id) }
                                 )
                             }
                         }

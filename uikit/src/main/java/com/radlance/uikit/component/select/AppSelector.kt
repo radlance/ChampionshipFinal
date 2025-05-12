@@ -44,7 +44,8 @@ fun AppSelector(
     hint: String,
     label: String,
     modifier: Modifier = Modifier,
-    closable: Boolean = false
+    closable: Boolean = false,
+    enabled: Boolean = true
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
     var showBottomSheet by remember { mutableStateOf(false) }
@@ -110,13 +111,18 @@ fun AppSelector(
                         color = CustomTheme.colors.inputStroke,
                         shape = RoundedCornerShape(10.dp)
                     )
-                    .clickable(
-                        interactionSource = remember { MutableInteractionSource() },
-                        indication = ripple()
-                    ) {
-                        keyboardController?.hide()
-                        showBottomSheet = true
-                    }
+                    .then(
+                        if (enabled) {
+                            Modifier .clickable(
+                                interactionSource = remember { MutableInteractionSource() },
+                                indication = ripple()
+                            ) {
+                                keyboardController?.hide()
+                                showBottomSheet = true
+                            }
+                        } else Modifier
+                    )
+
                     .weight(1f)
             ) {
                 Spacer(Modifier.width(14.dp))

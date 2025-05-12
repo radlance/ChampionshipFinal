@@ -23,4 +23,18 @@ class LocalProjectRepository @Inject constructor() : ProjectRepository {
             FetchResult.Error(null)
         }
     }
+
+    override fun updateProject(project: Project): FetchResult<Unit> {
+        return try {
+            LocalStorage.projects = LocalStorage.projects.map {
+                if (it.id == project.id) {
+                    project
+                } else it
+            }.toMutableList()
+
+            FetchResult.Success(Unit)
+        } catch (e: Exception) {
+            FetchResult.Error(null)
+        }
+    }
 }

@@ -11,10 +11,12 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
+import androidx.navigation.toRoute
 import com.radlance.championshipfinal.presentation.catalog.CatalogScreen
 import com.radlance.championshipfinal.presentation.home.HomeScreen
 import com.radlance.championshipfinal.presentation.home.ProductViewModel
 import com.radlance.championshipfinal.presentation.project.ProjectCreationScreen
+import com.radlance.championshipfinal.presentation.project.ProjectDetailsScreen
 import com.radlance.championshipfinal.presentation.project.ProjectScreen
 import com.radlance.championshipfinal.presentation.project.ProjectViewModel
 import com.radlance.uikit.component.tabbar.Catalog
@@ -49,7 +51,9 @@ fun BottomNavGraph(
         navigation<Projects>(startDestination = Projects.List) {
             composable<Projects.List> {
                 ProjectScreen(
-                    navigateToProjectDetails = {},
+                    navigateToProjectDetails = {
+                        navigationState.navigateTo(Projects.Details(it), popUpToStart = false)
+                    },
                     navigateToProjectCreation = {
                         navigationState.navigateTo(Projects.Create, popUpToStart = false)
                     },
@@ -59,6 +63,16 @@ fun BottomNavGraph(
 
             composable<Projects.Create> {
                 ProjectCreationScreen(
+                    navigateUp = navController::navigateUp,
+                    viewModel = projectViewModel
+                )
+            }
+
+            composable<Projects.Details> {
+                val args = it.toRoute<Projects.Details>()
+
+                ProjectDetailsScreen(
+                    projectId = args.projectId,
                     navigateUp = navController::navigateUp,
                     viewModel = projectViewModel
                 )

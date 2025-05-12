@@ -41,8 +41,8 @@ fun ProjectCreationScreen(
     addProjectUiState.Show(
         onSuccess = {
             LaunchedEffect(Unit) {
-                viewModel.fetchProjects()
                 navigateUp()
+                viewModel.fetchProjects(showLoading = false)
                 viewModel.resetState()
             }
         },

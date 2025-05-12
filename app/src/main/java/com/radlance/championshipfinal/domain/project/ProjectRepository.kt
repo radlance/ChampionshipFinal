@@ -8,4 +8,5 @@ interface ProjectRepository {
 
     fun addProject(project: Project): FetchResult<Unit>
 
+    fun updateProject(project: Project): FetchResult<Unit>
 }

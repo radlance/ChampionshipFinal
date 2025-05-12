@@ -47,7 +47,7 @@ object Projects : BottomTab {
 
     @Keep
     @Serializable
-    object Details
+    data class Details(val projectId: Int)
 }
 
 @Keep

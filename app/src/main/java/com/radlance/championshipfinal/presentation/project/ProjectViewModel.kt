@@ -30,8 +30,15 @@ class ProjectViewModel @Inject constructor(
     val addProjectUiState: StateFlow<FetchResultUiState<Unit>>
         get() = _addProjectUiState.asStateFlow()
 
-    fun fetchProjects() {
-        _fetchProjectsUiState.value = FetchResultUiState.Loading()
+    private val _updateProjectUiState =
+        MutableStateFlow<FetchResultUiState<Unit>>(FetchResultUiState.Initial())
+    val updateProjectUiState: StateFlow<FetchResultUiState<Unit>>
+        get() = _updateProjectUiState.asStateFlow()
+
+    fun fetchProjects(showLoading: Boolean = true) {
+        if (showLoading) {
+            _fetchProjectsUiState.value = FetchResultUiState.Loading()
+        }
 
         handle(
             action = {
@@ -73,7 +80,40 @@ class ProjectViewModel @Inject constructor(
         }
     }
 
+    fun updateProject(
+        id: Int,
+        type: String?,
+        projectName: String,
+        startDate: LocalDate,
+        endDate: LocalDate?,
+        toWhom: String?,
+        descriptionSource: String,
+        category: String?
+    ) {
+        val project = Project(
+            id = id,
+            type = type,
+            name = projectName,
+            startDate = startDate,
+            endDate = endDate,
+            toWhom = toWhom,
+            descriptionSource = descriptionSource,
+            category = category
+        )
+
+        _updateProjectUiState.value = FetchResultUiState.Loading()
+        handle(
+            action = {
+                delay(100)
+                projectRepository.updateProject(project)
+            }
+        ) {
+            _updateProjectUiState.value = it.map(FetchResultMapper())
+        }
+    }
+
     fun resetState() {
         _addProjectUiState.value = FetchResultUiState.Initial()
+        _updateProjectUiState.value = FetchResultUiState.Initial()
     }
 }

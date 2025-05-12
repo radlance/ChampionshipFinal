@@ -20,11 +20,12 @@ import java.time.temporal.ChronoUnit
 @Composable
 fun ProjectCard(
     title: String,
-    creationDate: LocalDate,
+    startDate: LocalDate,
+    endDate: LocalDate?,
     onProjectClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val daysPassed = ChronoUnit.DAYS.between(creationDate, LocalDate.now())
+    val daysPassed = ChronoUnit.DAYS.between(startDate, endDate ?: LocalDate.now())
 
     val dayWord = when {
         daysPassed % 100 in 11..19 -> "дней"
