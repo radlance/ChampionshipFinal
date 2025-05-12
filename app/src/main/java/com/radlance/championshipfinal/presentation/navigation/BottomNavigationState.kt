@@ -8,13 +8,15 @@ import androidx.navigation.compose.rememberNavController
 
 class BottomNavigationState(val navHostController: NavHostController) {
 
-    fun <T : Any> navigateTo(route: T) {
+    fun <T : Any> navigateTo(route: T, popUpToStart: Boolean = false) {
         navHostController.navigate(route) {
             launchSingleTop = true
             restoreState = true
 
-            popUpTo(navHostController.graph.findStartDestination().id) {
-                saveState = true
+            if (popUpToStart) {
+                popUpTo(navHostController.graph.findStartDestination().id) {
+                    saveState = true
+                }
             }
         }
     }

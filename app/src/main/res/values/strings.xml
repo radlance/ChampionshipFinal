@@ -54,4 +54,19 @@
     <string name="sum">Сумма</string>
     <string name="move_to_checkout">Перейти к оформлению заказа</string>
     <string name="no_products_in_cart">Нет товаров в коризне</string>
+    <string name="no_projects">Нет проектов</string>
+    <string name="select_type">Выберите тип</string>
+    <string name="type">Тип</string>
+    <string name="project_name">Название проекта</string>
+    <string name="enter_name">Введите имя</string>
+    <string name="start_date">Дата начала</string>
+    <string name="date_hint">--.--.----</string>
+    <string name="end_date">Давта окончания</string>
+    <string name="select_to_whome">Выберите кому</string>
+    <string name="to_whome">Кому</string>
+    <string name="description_source">Источник описания</string>
+    <string name="example_com">example.com</string>
+    <string name="select_category">Выберите категорию</string>
+    <string name="category">Категория</string>
+    <string name="submit">Подтвердить</string>
 </resources>

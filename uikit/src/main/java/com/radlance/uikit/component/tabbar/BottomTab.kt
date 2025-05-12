@@ -36,6 +36,18 @@ object Projects : BottomTab {
     override fun iconResId(): Int = R.drawable.ic_projects
 
     override fun labelResId(): Int = R.string.projects
+
+    @Keep
+    @Serializable
+    object List
+
+    @Keep
+    @Serializable
+    object Create
+
+    @Keep
+    @Serializable
+    object Details
 }
 
 @Keep

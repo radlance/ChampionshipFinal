@@ -1,0 +1,16 @@
+package com.radlance.championshipfinal.data.di
+
+import com.radlance.championshipfinal.data.project.LocalProjectRepository
+import com.radlance.championshipfinal.domain.project.ProjectRepository
+import dagger.Binds
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
+
+@Module
+@InstallIn(SingletonComponent::class)
+interface ProjectModule {
+
+    @Binds
+    fun provideProjectRepository(projectRepository: LocalProjectRepository): ProjectRepository
+}

@@ -10,9 +10,13 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.navigation
 import com.radlance.championshipfinal.presentation.catalog.CatalogScreen
 import com.radlance.championshipfinal.presentation.home.HomeScreen
 import com.radlance.championshipfinal.presentation.home.ProductViewModel
+import com.radlance.championshipfinal.presentation.project.ProjectCreationScreen
+import com.radlance.championshipfinal.presentation.project.ProjectScreen
+import com.radlance.championshipfinal.presentation.project.ProjectViewModel
 import com.radlance.uikit.component.tabbar.Catalog
 import com.radlance.uikit.component.tabbar.Home
 import com.radlance.uikit.component.tabbar.Profile
@@ -27,6 +31,7 @@ fun BottomNavGraph(
     productViewModel: ProductViewModel = hiltViewModel()
 ) {
     val navController = navigationState.navHostController
+    val projectViewModel = hiltViewModel<ProjectViewModel>()
 
     NavHost(
         navController = navController,
@@ -41,11 +46,25 @@ fun BottomNavGraph(
             CatalogScreen(navigateToCart = navigateToCart, viewModel = productViewModel)
         }
 
-        composable<Projects> {
-            Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
-                Text(text = "Projects")
+        navigation<Projects>(startDestination = Projects.List) {
+            composable<Projects.List> {
+                ProjectScreen(
+                    navigateToProjectDetails = {},
+                    navigateToProjectCreation = {
+                        navigationState.navigateTo(Projects.Create, popUpToStart = false)
+                    },
+                    viewModel = projectViewModel
+                )
+            }
+
+            composable<Projects.Create> {
+                ProjectCreationScreen(
+                    navigateUp = navController::navigateUp,
+                    viewModel = projectViewModel
+                )
             }
         }
+
 
         composable<Profile> {
             Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {

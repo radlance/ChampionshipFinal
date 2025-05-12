@@ -2,9 +2,11 @@ package com.radlance.championshipfinal.data.home
 
 import com.radlance.championshipfinal.domain.home.Category
 import com.radlance.championshipfinal.domain.home.Product
+import com.radlance.championshipfinal.domain.project.Project
+import java.time.LocalDate
 
 object LocalStorage {
-    var categories = listOf(
+    val categories = listOf(
         Category(id = 1, title = "Популярные"),
         Category(id = 2, title = "Женщинам"),
         Category(id = 3, title = "Мужчинам"),
@@ -38,9 +40,52 @@ object LocalStorage {
         }
     }
 
-    var products = createProducts(
+    var products: List<Product> = createProducts(
         1 to 7,
         2 to 2,
         3 to 4
+    )
+
+    val projects = mutableListOf(
+        Project(
+            id = 1,
+            type = "some type",
+            name = "Мой первый проект",
+            startDate = LocalDate.of(2025, 5, 8),
+            endDate = null,
+            toWhom = "someone",
+            descriptionSource = "some description",
+            category = "some category"
+        ),
+        Project(
+            id = 2,
+            type = "some type",
+            name = "Мой второй проект",
+            startDate = LocalDate.of(2025, 5, 9),
+            endDate = null,
+            toWhom = "someone",
+            descriptionSource = "some description",
+            category = "some category"
+        ),
+        Project(
+            id = 3,
+            type = "some type",
+            name = "Мой третий проект",
+            startDate = LocalDate.of(2025, 5, 10),
+            endDate = null,
+            toWhom = "someone",
+            descriptionSource = "some description",
+            category = "some category"
+        ),
+        Project(
+            id = 4,
+            type = "some type",
+            name = "Мой четвертый проект",
+            startDate = LocalDate.of(2025, 5, 11),
+            endDate = null,
+            toWhom = "someone",
+            descriptionSource = "some description",
+            category = "some category"
+        )
     )
 }
