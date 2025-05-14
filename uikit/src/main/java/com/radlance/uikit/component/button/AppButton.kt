@@ -24,22 +24,22 @@ fun AppButton(
         if (enabled) CustomTheme.colors.accent else CustomTheme.colors.accentInactive
     )
 
-        Button(
-            onClick = onClick,
-            enabled = enabled,
-            modifier = modifier
-                .then(buttonState.appButtonWidth())
-                .height(buttonState.height()),
-            shape = RoundedCornerShape(12.dp),
-            colors = ButtonDefaults.buttonColors().copy(
-                containerColor = color,
-                disabledContainerColor = color
-            )
-        ) {
-            Text(
-                text = label,
-                style = buttonState.style().copy(color = CustomTheme.colors.white)
-            )
-        }
+    Button(
+        onClick = onClick,
+        enabled = enabled,
+        modifier = modifier
+            .then(buttonState.appButtonWidth())
+            .height(buttonState.height()),
+        shape = RoundedCornerShape(12.dp),
+        colors = ButtonDefaults.buttonColors().copy(
+            containerColor = color,
+            disabledContainerColor = color
+        )
+    ) {
+        Text(
+            text = label,
+            style = buttonState.style().copy(color = CustomTheme.colors.white)
+        )
+    }
 
 }

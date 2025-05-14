@@ -1,5 +1,6 @@
 [versions]
 agp = "8.10.0"
+androidPdfViewer = "3.2.0-beta.3"
 kotlin = "2.1.20"
 coreKtx = "1.16.0"
 junit = "4.13.2"
@@ -22,6 +23,7 @@ hiltNavigationCompose = "1.2.0"
 datastorePreferences = "1.1.6"
 
 [libraries]
+android-pdf-viewer = { group = "com.github.mhiew", name = "android-pdf-viewer", version.ref = "androidPdfViewer" }
 androidx-datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastorePreferences" }
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "dagger" }
 hilt-android-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "dagger" }

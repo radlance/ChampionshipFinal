@@ -34,6 +34,7 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
@@ -143,6 +144,7 @@ fun EnterInputField(
                         },
                         enabled = enabled,
                         modifier = Modifier
+                            .testTag("inputField")
                             .fillMaxWidth()
                             .focusRequester(focusRequester)
                             .onFocusChanged { focusState -> hasFocus = focusState.hasFocus }
