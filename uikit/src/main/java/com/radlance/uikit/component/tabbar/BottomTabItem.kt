@@ -35,13 +35,12 @@ fun BottomTabItem(
             indication = null
         ) { onTabClick(bottomTab) }
     ) {
-        Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.Center) {
             Icon(
                 painter = painterResource(bottomTab.iconResId()),
                 contentDescription = null,
-                tint = color
+                tint = color,
+                modifier = Modifier.weight(1f)
             )
-        }
         Text(
             text = stringResource(bottomTab.labelResId()),
             style = CustomTheme.typography.caption2Regular.copy(color = color)

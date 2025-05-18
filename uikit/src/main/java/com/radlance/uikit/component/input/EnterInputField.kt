@@ -38,6 +38,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.radlance.uikit.R
 import com.radlance.uikit.theme.CustomTheme
@@ -179,5 +180,47 @@ fun EnterInputField(
                 )
             }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun EnterInputFieldPreview() {
+    var fieldValue by rememberSaveable { mutableStateOf("") }
+    var errorMessage by rememberSaveable { mutableStateOf("") }
+
+    CustomTheme {
+        EnterInputField(
+            value = fieldValue,
+            onValueChange = {
+                fieldValue = it
+                errorMessage = ""
+            },
+            errorMessage = errorMessage,
+            enabled = true,
+            label = "Имя",
+            hint = "Введите имя"
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun EnterInputFieldErrorPreview() {
+    var fieldValue by rememberSaveable { mutableStateOf("") }
+    var errorMessage by rememberSaveable { mutableStateOf("error") }
+
+    CustomTheme {
+        EnterInputField(
+            value = fieldValue,
+            onValueChange = {
+                fieldValue = it
+                errorMessage = "error"
+            },
+            errorMessage = errorMessage,
+            enabled = true,
+            label = "Имя",
+            hint = "Введите имя"
+        )
     }
 }
