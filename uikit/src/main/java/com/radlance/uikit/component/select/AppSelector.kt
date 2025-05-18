@@ -23,6 +23,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -30,6 +31,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.radlance.uikit.R
 import com.radlance.uikit.component.card.AppModalBottomSheet
@@ -115,7 +117,7 @@ fun AppSelector(
                     )
                     .then(
                         if (enabled) {
-                            Modifier .clickable(
+                            Modifier.clickable(
                                 interactionSource = remember { MutableInteractionSource() },
                                 indication = ripple()
                             ) {
@@ -159,5 +161,78 @@ fun AppSelector(
                 }
             }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun AppSelectorFirstPreview() {
+    val options = listOf("Мужской", "Женский")
+    var selectedOption by rememberSaveable { mutableStateOf<String?>(null) }
+
+    CustomTheme {
+        AppSelector(
+            options = options,
+            selectedItem = selectedOption,
+            onItemSelect = { selectedOption = it },
+            hint = "Пол",
+            label = "",
+            modifier = Modifier.padding(15.dp)
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun AppSelectorSecondPreview() {
+    val options = listOf("Мужской", "Женский")
+    var selectedOption by rememberSaveable { mutableStateOf<String?>(options.first()) }
+
+    CustomTheme {
+        AppSelector(
+            options = options,
+            selectedItem = selectedOption,
+            onItemSelect = { selectedOption = it },
+            hint = "Пол",
+            label = "",
+            modifier = Modifier.padding(15.dp)
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun AppSelectorThirdPreview() {
+    val options = listOf("Сегодня, 16 апреля", "Завтра, 17 апреля")
+    var selectedOption by rememberSaveable { mutableStateOf<String?>(options.first()) }
+
+    CustomTheme {
+        AppSelector(
+            options = options,
+            selectedItem = selectedOption,
+            onItemSelect = { selectedOption = it },
+            hint = "Дата",
+            label = "",
+            closable = true,
+            modifier = Modifier.padding(15.dp)
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun AppSelectorFourthPreview() {
+    val options = listOf("Сегодня, 16 апреля", "Завтра, 17 апреля")
+    var selectedOption by rememberSaveable { mutableStateOf<String?>(options.first()) }
+
+    CustomTheme {
+        AppSelector(
+            options = options,
+            selectedItem = selectedOption,
+            onItemSelect = { selectedOption = it },
+            hint = "Дата",
+            label = "",
+            modifier = Modifier.padding(15.dp)
+        )
     }
 }

@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
@@ -185,7 +186,98 @@ fun EnterInputField(
 
 @Preview(showBackground = true)
 @Composable
-private fun EnterInputFieldPreview() {
+private fun EnterInputFieldFirstStatePreview() {
+    var fieldValue by rememberSaveable { mutableStateOf("") }
+    var errorMessage by rememberSaveable { mutableStateOf("") }
+
+    CustomTheme {
+        EnterInputField(
+            value = fieldValue,
+            onValueChange = {
+                fieldValue = it
+                errorMessage = ""
+            },
+            errorMessage = errorMessage,
+            enabled = true,
+            label = "",
+            hint = "Введите имя",
+            modifier = Modifier.padding(15.dp)
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun EnterInputFieldSecondStatePreview() {
+    var fieldValue by rememberSaveable { mutableStateOf("Иван") }
+    var errorMessage by rememberSaveable { mutableStateOf("") }
+
+    CustomTheme {
+        EnterInputField(
+            value = fieldValue,
+            onValueChange = {
+                fieldValue = it
+                errorMessage = ""
+            },
+            errorMessage = errorMessage,
+            enabled = true,
+            label = "",
+            hint = "Введите имя",
+            selectedBorderColor = CustomTheme.colors.inputIcon,
+            modifier = Modifier.padding(15.dp)
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun EnterInputFieldThirdStatePreview() {
+    var fieldValue by rememberSaveable { mutableStateOf("Иван") }
+    var errorMessage by rememberSaveable { mutableStateOf("") }
+
+    CustomTheme {
+        EnterInputField(
+            value = fieldValue,
+            onValueChange = {
+                fieldValue = it
+                errorMessage = ""
+            },
+            errorMessage = errorMessage,
+            enabled = true,
+            label = "Имя",
+            hint = "Введите имя",
+            selectedBorderColor = CustomTheme.colors.inputIcon,
+            modifier = Modifier.padding(15.dp)
+        )
+    }
+}
+
+
+@Preview(showBackground = true)
+@Composable
+private fun EnterInputFieldFourthStatePreview() {
+    var fieldValue by rememberSaveable { mutableStateOf("") }
+    var errorMessage by rememberSaveable { mutableStateOf("Введите ваше имя") }
+
+    CustomTheme {
+        EnterInputField(
+            value = fieldValue,
+            onValueChange = {
+                fieldValue = it
+                errorMessage = ""
+            },
+            errorMessage = errorMessage,
+            enabled = true,
+            label = "",
+            hint = "Имя",
+            modifier = Modifier.padding(15.dp)
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun EnterInputFieldFifthStatePreview() {
     var fieldValue by rememberSaveable { mutableStateOf("") }
     var errorMessage by rememberSaveable { mutableStateOf("") }
 
@@ -199,28 +291,69 @@ private fun EnterInputFieldPreview() {
             errorMessage = errorMessage,
             enabled = true,
             label = "Имя",
-            hint = "Введите имя"
+            hint = "Введите имя",
+            selectedBorderColor = CustomTheme.colors.inputIcon,
+            modifier = Modifier.padding(15.dp)
         )
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-private fun EnterInputFieldErrorPreview() {
+private fun EnterInputFieldSixthStatePreview() {
     var fieldValue by rememberSaveable { mutableStateOf("") }
-    var errorMessage by rememberSaveable { mutableStateOf("error") }
+
+    CustomTheme {
+        SingleInputField(
+            value = fieldValue,
+            onValueChange = { fieldValue = it },
+            hint = "1",
+            modifier = Modifier.padding(15.dp)
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun EnterInputFieldSeventhStatePreview() {
+    var fieldValue by rememberSaveable { mutableStateOf("") }
+    var errorMessage by rememberSaveable { mutableStateOf("") }
 
     CustomTheme {
         EnterInputField(
             value = fieldValue,
             onValueChange = {
                 fieldValue = it
-                errorMessage = "error"
+                errorMessage = ""
             },
             errorMessage = errorMessage,
-            enabled = true,
+            enabled = false,
+            label = "",
+            hint = "Введите имя",
+            selectedBorderColor = CustomTheme.colors.inputIcon,
+            modifier = Modifier.padding(15.dp)
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun EnterInputFieldEighthStatePreview() {
+    var fieldValue by rememberSaveable { mutableStateOf("Введите имя") }
+    var errorMessage by rememberSaveable { mutableStateOf("") }
+
+    CustomTheme {
+        EnterInputField(
+            value = fieldValue,
+            onValueChange = {
+                fieldValue = it
+                errorMessage = ""
+            },
+            errorMessage = errorMessage,
+            enabled = false,
             label = "Имя",
-            hint = "Введите имя"
+            hint = "Введите имя",
+            modifier = Modifier.padding(15.dp)
         )
     }
 }

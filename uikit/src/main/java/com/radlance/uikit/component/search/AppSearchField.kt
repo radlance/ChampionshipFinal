@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
@@ -17,7 +18,11 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -25,6 +30,7 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.radlance.uikit.R
 import com.radlance.uikit.theme.CustomTheme
@@ -35,6 +41,7 @@ fun AppSearchField(
     onValueChange: (String) -> Unit,
     hint: String,
     modifier: Modifier = Modifier,
+    showAlwaysClose: Boolean = false,
     additionalContent: @Composable () -> Unit = {}
 ) {
     val interactionSource = remember { MutableInteractionSource() }
@@ -80,7 +87,7 @@ fun AppSearchField(
                     modifier = Modifier.fillMaxWidth()
                 )
             }
-            if (value.isNotEmpty()) {
+            if (value.isNotEmpty() || showAlwaysClose) {
                 Icon(
                     painter = painterResource(R.drawable.ic_close),
                     contentDescription = "ic_close",
@@ -96,6 +103,88 @@ fun AppSearchField(
             }
         }
         additionalContent()
+    }
+}
 
+@Preview(showBackground = true)
+@Composable
+private fun AppSearchFieldFirstPreview() {
+    var searchFieldValue by rememberSaveable { mutableStateOf("") }
+
+    CustomTheme {
+        AppSearchField(
+            value = searchFieldValue,
+            onValueChange = { searchFieldValue = it },
+            hint = "Искать в описании",
+            showAlwaysClose = true,
+            modifier = Modifier.padding(15.dp)
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun AppSearchFieldSecondPreview() {
+    var searchFieldValue by rememberSaveable { mutableStateOf("") }
+
+    CustomTheme {
+        AppSearchField(
+            value = searchFieldValue,
+            onValueChange = { searchFieldValue = it },
+            hint = "Искать в описании",
+            modifier = Modifier.padding(15.dp)
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun AppSearchFieldThirdPreview() {
+    var searchFieldValue by rememberSaveable { mutableStateOf("") }
+
+    CustomTheme {
+        AppSearchField(
+            value = searchFieldValue,
+            onValueChange = { searchFieldValue = it },
+            hint = "Искать в описании",
+            showAlwaysClose = true,
+            additionalContent = {
+                Row {
+                    Spacer(Modifier.width(16.dp))
+                    Text(
+                        text = "Отменить", style = CustomTheme.typography.captionRegular.copy(
+                            color = CustomTheme.colors.accent
+                        )
+                    )
+                }
+            },
+            modifier = Modifier.padding(15.dp)
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun AppSearchFieldFourthPreview() {
+    var searchFieldValue by rememberSaveable { mutableStateOf("Вареж") }
+
+    CustomTheme {
+        AppSearchField(
+            value = searchFieldValue,
+            onValueChange = { searchFieldValue = it },
+            hint = "Искать в описании",
+            showAlwaysClose = true,
+            additionalContent = {
+                Row {
+                    Spacer(Modifier.width(16.dp))
+                    Text(
+                        text = "Отменить", style = CustomTheme.typography.captionRegular.copy(
+                            color = CustomTheme.colors.accent
+                        )
+                    )
+                }
+            },
+            modifier = Modifier.padding(15.dp)
+        )
     }
 }

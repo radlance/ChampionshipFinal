@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.radlance.uikit.theme.CustomTheme
@@ -59,5 +60,61 @@ fun BottomTabBar(
                 }
             }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun BottomTabBarHomePreview() {
+    CustomTheme {
+        BottomTabBar(
+            tabs = listOf(Home, Catalog, Projects, Profile),
+            routes = sequenceOf("com.radlance.uikit.component.tabbar.Home"),
+            onTabClick = {},
+            bottomPadding = 0.dp,
+            modifier = Modifier.padding(15.dp)
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun BottomTabBarCatalogPreview() {
+    CustomTheme {
+        BottomTabBar(
+            tabs = listOf(Home, Catalog, Projects, Profile),
+            routes = sequenceOf("com.radlance.uikit.component.tabbar.Catalog"),
+            onTabClick = {},
+            bottomPadding = 0.dp,
+            modifier = Modifier.padding(15.dp)
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun BottomTabBarProjectsPreview() {
+    CustomTheme {
+        BottomTabBar(
+            tabs = listOf(Home, Catalog, Projects, Profile),
+            routes = sequenceOf("com.radlance.uikit.component.tabbar.Projects"),
+            onTabClick = {},
+            bottomPadding = 0.dp,
+            modifier = Modifier.padding(15.dp)
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun BottomTabBarProfilePreview() {
+    CustomTheme {
+        BottomTabBar(
+            tabs = listOf(Home, Catalog, Projects, Profile),
+            routes = sequenceOf("com.radlance.uikit.component.tabbar.Profile"),
+            onTabClick = {},
+            bottomPadding = 0.dp,
+            modifier = Modifier.padding(15.dp)
+        )
     }
 }
